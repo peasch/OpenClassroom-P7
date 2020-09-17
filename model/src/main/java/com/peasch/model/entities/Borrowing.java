@@ -30,4 +30,16 @@ public class Borrowing {
     @ManyToOne
     @JoinColumn(name = "fk_copy")
     private Copy copy;
+
+    @Override
+    public String toString() {
+        return "Borrowing{" +
+                "id=" + id +
+                ", borrowingDate='" + borrowingDate + '\'' +
+                ", returnDate='" + returnDate + '\'' +
+                ", extended=" + extended +
+                ", user=" + user +
+                ", copy=" + copy +
+                '}';
+    }
 }

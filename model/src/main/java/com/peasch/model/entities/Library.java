@@ -1,5 +1,6 @@
 package com.peasch.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,9 +28,23 @@ public class Library {
     @Column(name="email")
     private String email;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "library",fetch = FetchType.LAZY)
     private Set<User> Users = new HashSet<>();
-
+    @JsonIgnore
     @OneToMany(mappedBy = "library",fetch = FetchType.LAZY)
     private Set<Copy> copies = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Library{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", adress='" + adress + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", Users=" + Users +
+                ", copies=" + copies +
+                '}';
+    }
 }

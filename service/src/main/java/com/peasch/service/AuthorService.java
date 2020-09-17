@@ -1,13 +1,15 @@
 package com.peasch.service;
 
-import com.peasch.repository.dao.AuthorDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.peasch.model.entities.Author;
 
-@Service
-public class AuthorService {
+import java.util.List;
 
-    @Autowired
-    AuthorDao dao;
+public interface AuthorService {
+
+    List<Author> getAuthors();
+
+    Author findById(Integer id);
+
+    Author save(Author author);
 
 }

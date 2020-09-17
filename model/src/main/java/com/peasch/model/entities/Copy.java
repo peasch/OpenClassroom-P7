@@ -27,4 +27,14 @@ public class Copy {
     @ManyToOne
     @JoinColumn(name = "fk_library")
     private Library library;
+
+    @Override
+    public String toString() {
+        return "Copy{" +
+                "id=" + id +
+                ", available=" + available +
+                ", book=" + book +
+                ", library=" + library +
+                '}';
+    }
 }

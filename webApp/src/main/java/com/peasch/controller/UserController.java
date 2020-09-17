@@ -1,7 +1,7 @@
 package com.peasch.controller;
 
 import com.peasch.model.entities.User;
-import com.peasch.service.UserService;
+import com.peasch.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,22 +9,23 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserService service;
+    private UserServiceImpl service;
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> getUsers(){
         return service.getUsers();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public User getUserById(@PathVariable(value = "id")Integer id){
         return service.findById(id);
     }
 
-    @PostMapping("/user/add")
+    @PostMapping("/add")
     public void addUser (@RequestBody User user){
-        service.saveUser(user);
+        service.save(user);
     }
 }
