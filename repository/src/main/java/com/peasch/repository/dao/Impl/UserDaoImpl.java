@@ -12,17 +12,4 @@ import javax.persistence.PersistenceContext;
 @Repository
 public class UserDaoImpl{
 
-   /* @PersistenceContext
-    EntityManager em;
-
-    @Override
-    public User saveUser(User user) {
-        em.persist(user);
-        return null;
-    }
-
-    @Override
-    public User getUserById(Integer id) {
-        return em.find(User.class,id);
-    }*/
 }

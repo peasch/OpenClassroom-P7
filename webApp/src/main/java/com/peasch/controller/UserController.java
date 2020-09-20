@@ -5,30 +5,31 @@ import com.peasch.model.dto.mapper.UserMapper;
 import com.peasch.model.entities.User;
 import com.peasch.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping("/users")
+
 public class UserController {
     @Autowired
     private UserServiceImpl service;
 
-    @GetMapping
+    @GetMapping(value="/users")
     public List<UserDto> getUsers() {
         return service.getUsers();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public UserDto getUserById(@PathVariable(value = "id") Integer id) {
         UserDto userDto = service.findById(id);
 
         return userDto;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/user/add")
     public void addUser(@RequestBody UserDto userDto) {
         service.save(userDto);
     }
