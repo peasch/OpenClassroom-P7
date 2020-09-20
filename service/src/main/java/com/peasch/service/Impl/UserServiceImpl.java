@@ -1,11 +1,15 @@
 package com.peasch.service.Impl;
 
+import com.mysql.cj.xdevapi.Client;
+import com.peasch.model.dto.UserDto;
+import com.peasch.model.dto.mapper.UserMapper;
 import com.peasch.model.entities.User;
 import com.peasch.repository.dao.UserDao;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,17 +17,27 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserMapper userMapper;
 
-    public List<User> getUsers(){
-        return userDao.findAll();
+
+    public List<UserDto> getUsers() {
+        List<UserDto> userDtos = new ArrayList<>();
+        List<User> users = userDao.findAll();
+
+        for(User user :users){
+            userDtos.add(userMapper.fromUserToDto(user));
+        }
+        return userDtos;
     }
 
-    public User findById(Integer id){
+    public User findById(Integer id) {
+
         return userDao.findById(id).get();
 
     }
 
-    public User save(User user){
+    public User save(User user) {
         return userDao.save(user);
     }
 }
