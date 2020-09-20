@@ -1,36 +1,24 @@
-package com.peasch.model.entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.peasch.model.dto;
+import com.peasch.model.entities.Book;
 import lombok.*;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "author")
-
-public class Author {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class AuthorDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "firstname")
     private String firstName;
-    @Column(name = "birth_date")
     private String birthDate;
-    @Column(name = "death")
     private String deathDate;
-    @JsonIgnore
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private Set<Book> books = new HashSet<>();
 
-    public Author() {
+    public AuthorDto() {
     }
 
-    public Author(int id, String name, String firstName, String birthDate, String deathDate, Set<Book> books) {
+    public AuthorDto(int id, String name, String firstName, String birthDate, String deathDate, Set<Book> books) {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
@@ -41,7 +29,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return "Author{" +
+        return "AuthorDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", firstName='" + firstName + '\'' +

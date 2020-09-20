@@ -1,35 +1,22 @@
-package com.peasch.model.entities;
+package com.peasch.model.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.peasch.model.entities.Book;
+import com.peasch.model.entities.Library;
+import lombok.*;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
-@Table(name="copy")
-
-public class Copy {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class CopyDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id;
-    @Column(name="available")
     private boolean available;
-
-    @ManyToOne
-    @JoinColumn(name = "fk_book")
     private Book book;
-
-
-    @ManyToOne
-    @JoinColumn(name = "fk_library")
     private Library library;
 
-    public Copy() {
+    public CopyDto() {
     }
 
-    public Copy(int id, boolean available, Book book, Library library) {
+    public CopyDto(int id, boolean available, Book book, Library library) {
         this.id = id;
         this.available = available;
         this.book = book;
@@ -38,13 +25,15 @@ public class Copy {
 
     @Override
     public String toString() {
-        return "Copy{" +
+        return "CopyDto{" +
                 "id=" + id +
                 ", available=" + available +
                 ", book=" + book +
                 ", library=" + library +
                 '}';
     }
+
+
 
     public int getId() {
         return id;

@@ -1,59 +1,48 @@
-package com.peasch.model.entities;
+package com.peasch.model.dto;
 
+import com.peasch.model.entities.Copy;
+import com.peasch.model.entities.User;
 import lombok.*;
 
-import javax.persistence.*;
+import java.io.Serializable;
 
-@Entity
-@Table(name="borrowing")
 
-public class Borrowing {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class BorrowingDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id;
-    @Column(name="borrowing_date")
     private String borrowingDate;
-    @Column(name="returnDate")
     private String returnDate;
-    @Column(name="extended")
     private boolean extended;
-    @Column(name="returned")
+    private User user;
+    private Copy copy;
     private Boolean returned;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_user")
-    private User user;
+    public BorrowingDto() {
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_copy")
-    private Copy copy;
-
-    public Borrowing(int id, String borrowingDate, String returnDate, boolean extended, Boolean returned, User user, Copy copy) {
+    public BorrowingDto(int id, String borrowingDate, String returnDate, boolean extended, User user, Copy copy, Boolean returned) {
         this.id = id;
         this.borrowingDate = borrowingDate;
         this.returnDate = returnDate;
         this.extended = extended;
-        this.returned = returned;
         this.user = user;
         this.copy = copy;
-    }
-
-    public Borrowing() {
+        this.returned = returned;
     }
 
     @Override
     public String toString() {
-        return "Borrowing{" +
+        return "BorrowingDto{" +
                 "id=" + id +
                 ", borrowingDate='" + borrowingDate + '\'' +
                 ", returnDate='" + returnDate + '\'' +
                 ", extended=" + extended +
-                ", returned=" + returned +
                 ", user=" + user +
                 ", copy=" + copy +
+                ", returned=" + returned +
                 '}';
     }
+
 
     public int getId() {
         return id;
@@ -87,14 +76,6 @@ public class Borrowing {
         this.extended = extended;
     }
 
-    public Boolean getReturned() {
-        return returned;
-    }
-
-    public void setReturned(Boolean returned) {
-        this.returned = returned;
-    }
-
     public User getUser() {
         return user;
     }
@@ -109,5 +90,13 @@ public class Borrowing {
 
     public void setCopy(Copy copy) {
         this.copy = copy;
+    }
+
+    public Boolean getReturned() {
+        return returned;
+    }
+
+    public void setReturned(Boolean returned) {
+        this.returned = returned;
     }
 }

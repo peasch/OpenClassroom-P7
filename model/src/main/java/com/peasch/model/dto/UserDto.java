@@ -1,13 +1,10 @@
 package com.peasch.model.dto;
-
 import com.peasch.model.entities.Borrowing;
 import com.peasch.model.entities.Library;
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
 
 
 public class UserDto implements Serializable {
@@ -26,9 +23,18 @@ public class UserDto implements Serializable {
     public UserDto() {
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public UserDto(int id, String userName, String password, String email, String name, String firstName, String birthDate, Library library, Set<Borrowing> borrowings) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.firstName = firstName;
+        this.birthDate = birthDate;
+        this.library = library;
+        this.borrowings = borrowings;
     }
+
 
     public int getId() {
         return id;
@@ -99,18 +105,6 @@ public class UserDto implements Serializable {
     }
 
     public void setBorrowings(Set<Borrowing> borrowings) {
-        this.borrowings = borrowings;
-    }
-
-    public UserDto(int id, String userName, String password, String email, String name, String firstName, String birthDate, Library library, Set<Borrowing> borrowings) {
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.firstName = firstName;
-        this.birthDate = birthDate;
-        this.library = library;
         this.borrowings = borrowings;
     }
 

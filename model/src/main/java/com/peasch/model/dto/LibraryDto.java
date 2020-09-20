@@ -1,43 +1,27 @@
-package com.peasch.model.entities;
+package com.peasch.model.dto;
+import com.peasch.model.entities.Copy;
+import com.peasch.model.entities.User;
+import lombok.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name="library")
 
-public class Library {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+public class LibraryDto implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id;
-    @Column(name="name")
     private String name;
-    @Column(name="adresse")
     private String adress;
-    @Column(name="phone")
     private String phone;
-    @Column(name="email")
     private String email;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "library",fetch = FetchType.LAZY)
     private Set<User> Users = new HashSet<>();
-    @JsonIgnore
-    @OneToMany(mappedBy = "library",fetch = FetchType.LAZY)
     private Set<Copy> copies = new HashSet<>();
 
-    public Library() {
+    public LibraryDto() {
     }
 
-    public Library(int id, String name, String adress, String phone, String email, Set<User> users, Set<Copy> copies) {
+    public LibraryDto(int id, String name, String adress, String phone, String email, Set<User> users, Set<Copy> copies) {
         this.id = id;
         this.name = name;
         this.adress = adress;
@@ -49,7 +33,7 @@ public class Library {
 
     @Override
     public String toString() {
-        return "Library{" +
+        return "LibraryDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", adress='" + adress + '\'' +
@@ -59,6 +43,8 @@ public class Library {
                 ", copies=" + copies +
                 '}';
     }
+
+
 
     public int getId() {
         return id;

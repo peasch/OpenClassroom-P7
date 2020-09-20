@@ -31,13 +31,13 @@ public class UserServiceImpl implements UserService {
         return userDtos;
     }
 
-    public User findById(Integer id) {
-
-        return userDao.findById(id).get();
+    public UserDto findById(Integer id) {
+        return userMapper.fromUserToDto(userDao.findById(id).get());
 
     }
 
-    public User save(User user) {
-        return userDao.save(user);
+    public UserDto save(UserDto userDto) {
+        return userMapper.fromUserToDto(userDao.save(userMapper.fromDtoToUser(userDto)));
+
     }
 }

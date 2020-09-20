@@ -22,14 +22,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable(value = "id") Integer id) {
-        User user = service.findById(id);
+    public UserDto getUserById(@PathVariable(value = "id") Integer id) {
+        UserDto userDto = service.findById(id);
 
-        return user;
+        return userDto;
     }
 
     @PostMapping("/add")
-    public void addUser(@RequestBody User user) {
-        service.save(user);
+    public void addUser(@RequestBody UserDto userDto) {
+        service.save(userDto);
     }
 }
