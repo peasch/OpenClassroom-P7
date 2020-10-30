@@ -1,7 +1,10 @@
 package com.peasch.controller;
 
+import com.peasch.model.dto.BookDto;
 import com.peasch.model.entities.Book;
+import com.peasch.model.entities.Research;
 import com.peasch.model.entities.User;
+import com.peasch.service.AuthorService;
 import com.peasch.service.BookService;
 import com.peasch.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +18,16 @@ public class BookController {
 
     @Autowired
     private BookService service;
+    @Autowired
+    private AuthorService autService;
 
     @GetMapping
-    public List<Book> getBooks(){
+    public List<BookDto> getBooks(){
         return service.getBooks();
     }
 
     @GetMapping("{id}")
-    public Book getUserById(@PathVariable(value = "id")Integer id){
+    public Book getBookById(@PathVariable(value = "id")Integer id){
         return service.findById(id);
     }
 
@@ -30,4 +35,12 @@ public class BookController {
     public void addBook (@RequestBody Book book){
         service.save(book);
     }
+
+    @PostMapping("search")
+    public List<BookDto> findBooksByAuthor(@RequestBody Research research){
+        String authorString = research.getResearchAuthor();
+       List<BookDto> books =service.findBooksByAuthor_Name(authorString);
+        return books;
+    }
+
 }

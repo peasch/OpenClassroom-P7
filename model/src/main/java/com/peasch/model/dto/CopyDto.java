@@ -23,16 +23,6 @@ public class CopyDto implements Serializable {
         this.library = library;
     }
 
-    @Override
-    public String toString() {
-        return "CopyDto{" +
-                "id=" + id +
-                ", available=" + available +
-                ", book=" + book +
-                ", library=" + library +
-                '}';
-    }
-
 
 
     public int getId() {

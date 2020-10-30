@@ -3,7 +3,6 @@ package com.peasch.model.dto.mapper;
 import com.peasch.model.dto.LibraryDto;
 import com.peasch.model.entities.Copy;
 import com.peasch.model.entities.Library;
-import com.peasch.model.entities.User;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Generated;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-09-20T21:43:09+0200",
+    date = "2020-10-26T09:14:57+0100",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 12.0.2 (Oracle Corporation)"
 )
 @Component
@@ -30,13 +29,9 @@ public class LibraryMapperImpl implements LibraryMapper {
         library.setAdress( libraryDto.getAdress() );
         library.setPhone( libraryDto.getPhone() );
         library.setEmail( libraryDto.getEmail() );
-        Set<User> set = libraryDto.getUsers();
+        Set<Copy> set = libraryDto.getCopies();
         if ( set != null ) {
-            library.setUsers( new HashSet<User>( set ) );
-        }
-        Set<Copy> set1 = libraryDto.getCopies();
-        if ( set1 != null ) {
-            library.setCopies( new HashSet<Copy>( set1 ) );
+            library.setCopies( new HashSet<Copy>( set ) );
         }
 
         return library;
@@ -55,13 +50,9 @@ public class LibraryMapperImpl implements LibraryMapper {
         libraryDto.setAdress( library.getAdress() );
         libraryDto.setPhone( library.getPhone() );
         libraryDto.setEmail( library.getEmail() );
-        Set<User> set = library.getUsers();
+        Set<Copy> set = library.getCopies();
         if ( set != null ) {
-            libraryDto.setUsers( new HashSet<User>( set ) );
-        }
-        Set<Copy> set1 = library.getCopies();
-        if ( set1 != null ) {
-            libraryDto.setCopies( new HashSet<Copy>( set1 ) );
+            libraryDto.setCopies( new HashSet<Copy>( set ) );
         }
 
         return libraryDto;

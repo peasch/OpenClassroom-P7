@@ -27,17 +27,6 @@ public class AuthorDto implements Serializable {
         this.books = books;
     }
 
-    @Override
-    public String toString() {
-        return "AuthorDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", deathDate='" + deathDate + '\'' +
-                ", books=" + books +
-                '}';
-    }
 
     public int getId() {
         return id;

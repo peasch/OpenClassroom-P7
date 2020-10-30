@@ -23,7 +23,7 @@ public class CopyController {
     }
 
     @GetMapping("{id}")
-    public Copy getUserById(@PathVariable(value = "id")Integer id){
+    public Copy getCopyById(@PathVariable(value = "id")Integer id){
         return service.findById(id);
     }
 

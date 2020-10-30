@@ -39,17 +39,7 @@ public class Author {
         this.books = books;
     }
 
-    @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", deathDate='" + deathDate + '\'' +
-                ", books=" + books +
-                '}';
-    }
+
 
     public int getId() {
         return id;

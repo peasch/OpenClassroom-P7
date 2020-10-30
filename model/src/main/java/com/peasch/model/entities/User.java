@@ -1,10 +1,4 @@
 package com.peasch.model.entities;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -31,9 +25,6 @@ public class User implements Serializable {
     @Column(name = "birthdate")
     private String birthDate;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_library")
-    private Library library;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Borrowing> borrowings = new HashSet<>();
@@ -41,7 +32,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(int id, String userName, String password, String email, String name, String firstName, String birthDate, Library library, Set<Borrowing> borrowings) {
+    public User(int id, String userName, String password, String email, String name, String firstName, String birthDate, Set<Borrowing> borrowings) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -49,7 +40,6 @@ public class User implements Serializable {
         this.name = name;
         this.firstName = firstName;
         this.birthDate = birthDate;
-        this.library = library;
         this.borrowings = borrowings;
     }
 
@@ -109,13 +99,6 @@ public class User implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public Library getLibrary() {
-        return library;
-    }
-
-    public void setLibrary(Library library) {
-        this.library = library;
-    }
 
     public Set<Borrowing> getBorrowings() {
         return borrowings;
@@ -125,20 +108,7 @@ public class User implements Serializable {
         this.borrowings = borrowings;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", library=" + library +
-                ", borrowings=" + borrowings +
-                '}';
-    }
+
 }
 
 

@@ -25,15 +25,6 @@ public class CategoryDto implements Serializable {
         this.booksOfCategory = booksOfCategory;
     }
 
-    @Override
-    public String toString() {
-        return "CategoryDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", booksOfCategory=" + booksOfCategory +
-                '}';
-    }
 
 
 

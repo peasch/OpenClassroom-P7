@@ -16,31 +16,25 @@ public class BookDto implements Serializable {
     private String summary;
     private Category category;
     private Author author;
+    private String cover;
     private Set<Copy> copiesOfBook = new HashSet<>();
 
     public BookDto() {
     }
 
-    public BookDto(int id, String title, String summary, Category category, Author author, Set<Copy> copiesOfBook) {
+    public BookDto(int id, String title, String summary, Category category, Author author, String cover, Set<Copy> copiesOfBook) {
         this.id = id;
         this.title = title;
         this.summary = summary;
         this.category = category;
         this.author = author;
+        this.cover = cover;
         this.copiesOfBook = copiesOfBook;
     }
 
-    @Override
-    public String toString() {
-        return "BookDto{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", summary='" + summary + '\'' +
-                ", category=" + category +
-                ", author=" + author +
-                ", copiesOfBook=" + copiesOfBook +
-                '}';
-    }
+
+
+
 
     public int getId() {
         return id;

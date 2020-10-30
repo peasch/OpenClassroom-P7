@@ -10,23 +10,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/libraries")
+@RequestMapping
 public class LibraryController {
     @Autowired
     private LibraryService service;
 
 
-    @GetMapping
+    @GetMapping("/libraries")
     public List<Library> getLibraries(){
         return service.getLibraries();
     }
 
-    @GetMapping("{id}")
-    public Library getUserById(@PathVariable(value = "id")Integer id){
+    @GetMapping("/libraries/{id}")
+    public Library getLibraryById(@PathVariable(value = "id")Integer id){
         return service.findById(id);
     }
 
-    @PostMapping("add")
+    @PostMapping("/libraries/add")
     public void addLibrary (@RequestBody Library library){
         service.save(library);
     }

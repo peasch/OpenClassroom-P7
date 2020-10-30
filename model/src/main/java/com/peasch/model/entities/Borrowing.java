@@ -42,18 +42,7 @@ public class Borrowing {
     public Borrowing() {
     }
 
-    @Override
-    public String toString() {
-        return "Borrowing{" +
-                "id=" + id +
-                ", borrowingDate='" + borrowingDate + '\'' +
-                ", returnDate='" + returnDate + '\'' +
-                ", extended=" + extended +
-                ", returned=" + returned +
-                ", user=" + user +
-                ", copy=" + copy +
-                '}';
-    }
+
 
     public int getId() {
         return id;

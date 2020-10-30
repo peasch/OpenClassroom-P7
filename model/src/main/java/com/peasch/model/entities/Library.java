@@ -29,9 +29,6 @@ public class Library {
 
     @JsonIgnore
     @OneToMany(mappedBy = "library",fetch = FetchType.LAZY)
-    private Set<User> Users = new HashSet<>();
-    @JsonIgnore
-    @OneToMany(mappedBy = "library",fetch = FetchType.LAZY)
     private Set<Copy> copies = new HashSet<>();
 
     public Library() {
@@ -43,22 +40,11 @@ public class Library {
         this.adress = adress;
         this.phone = phone;
         this.email = email;
-        Users = users;
+
         this.copies = copies;
     }
 
-    @Override
-    public String toString() {
-        return "Library{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", adress='" + adress + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", Users=" + Users +
-                ", copies=" + copies +
-                '}';
-    }
+
 
     public int getId() {
         return id;
@@ -98,14 +84,6 @@ public class Library {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Set<User> getUsers() {
-        return Users;
-    }
-
-    public void setUsers(Set<User> users) {
-        Users = users;
     }
 
     public Set<Copy> getCopies() {

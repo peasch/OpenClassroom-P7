@@ -36,15 +36,7 @@ public class Copy {
         this.library = library;
     }
 
-    @Override
-    public String toString() {
-        return "Copy{" +
-                "id=" + id +
-                ", available=" + available +
-                ", book=" + book +
-                ", library=" + library +
-                '}';
-    }
+
 
     public int getId() {
         return id;

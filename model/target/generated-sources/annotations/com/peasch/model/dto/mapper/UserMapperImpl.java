@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-09-20T21:43:09+0200",
+    date = "2020-10-26T09:14:57+0100",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 12.0.2 (Oracle Corporation)"
 )
 @Component
@@ -31,7 +31,6 @@ public class UserMapperImpl implements UserMapper {
         user.setName( userDto.getName() );
         user.setFirstName( userDto.getFirstName() );
         user.setBirthDate( userDto.getBirthDate() );
-        user.setLibrary( userDto.getLibrary() );
         Set<Borrowing> set = userDto.getBorrowings();
         if ( set != null ) {
             user.setBorrowings( new HashSet<Borrowing>( set ) );
@@ -55,7 +54,6 @@ public class UserMapperImpl implements UserMapper {
         userDto.setName( user.getName() );
         userDto.setFirstName( user.getFirstName() );
         userDto.setBirthDate( user.getBirthDate() );
-        userDto.setLibrary( user.getLibrary() );
         Set<Borrowing> set = user.getBorrowings();
         if ( set != null ) {
             userDto.setBorrowings( new HashSet<Borrowing>( set ) );

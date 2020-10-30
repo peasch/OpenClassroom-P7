@@ -1,15 +1,16 @@
 package com.peasch.service;
 
+import com.peasch.model.dto.AuthorDto;
 import com.peasch.model.entities.Author;
 
 import java.util.List;
 
 public interface AuthorService {
 
-    List<Author> getAuthors();
+    List<AuthorDto> getAuthors();
 
-    Author findById(Integer id);
+    AuthorDto findById(Integer id);
 
-    Author save(Author author);
-
+    AuthorDto save(AuthorDto authorDto);
+    AuthorDto findAuthorByName(String name);
 }

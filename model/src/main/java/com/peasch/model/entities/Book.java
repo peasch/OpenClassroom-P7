@@ -19,6 +19,8 @@ public class Book {
     @Lob
     @Column(name = "summary")
     private String summary;
+    @Column(name="cover")
+    private String cover;
     @ManyToOne
     @JoinColumn(name = "fk_category")
     private Category category;
@@ -33,25 +35,24 @@ public class Book {
     public Book() {
     }
 
-    public Book(int id, String title, String summary, Category category, Author author, Set<Copy> copiesOfBook) {
+    public Book(int id, String title, String summary, String cover, Category category, Author author, Set<Copy> copiesOfBook) {
         this.id = id;
         this.title = title;
         this.summary = summary;
+        this.cover = cover;
         this.category = category;
         this.author = author;
         this.copiesOfBook = copiesOfBook;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", summary='" + summary + '\'' +
-                ", category=" + category +
-                ", author=" + author +
-                ", copiesOfBook=" + copiesOfBook +
-                '}';
+
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     public int getId() {

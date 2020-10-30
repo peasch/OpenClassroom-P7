@@ -31,18 +31,7 @@ public class LibraryDto implements Serializable {
         this.copies = copies;
     }
 
-    @Override
-    public String toString() {
-        return "LibraryDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", adress='" + adress + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", Users=" + Users +
-                ", copies=" + copies +
-                '}';
-    }
+
 
 
 

@@ -35,15 +35,7 @@ public class Category implements Serializable {
         this.booksOfCategory = booksOfCategory;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", booksOfCategory=" + booksOfCategory +
-                '}';
-    }
+
 
     public int getId() {
         return id;

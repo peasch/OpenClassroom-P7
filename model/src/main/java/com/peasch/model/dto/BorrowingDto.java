@@ -30,18 +30,7 @@ public class BorrowingDto implements Serializable {
         this.returned = returned;
     }
 
-    @Override
-    public String toString() {
-        return "BorrowingDto{" +
-                "id=" + id +
-                ", borrowingDate='" + borrowingDate + '\'' +
-                ", returnDate='" + returnDate + '\'' +
-                ", extended=" + extended +
-                ", user=" + user +
-                ", copy=" + copy +
-                ", returned=" + returned +
-                '}';
-    }
+
 
 
     public int getId() {
