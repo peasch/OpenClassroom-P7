@@ -22,15 +22,22 @@
           <entry name="$MAVEN_REPOSITORY$/joda-time/joda-time/2.9/joda-time-2.9.jar" />
         </processorPath>
         <module name="model" />
-        <module name="service" />
-        <module name="repository" />
         <module name="webApp" />
+        <module name="repository" />
+        <module name="service" />
+      </profile>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="security" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="library-management-system" target="1.8" />
       <module name="model" target="1.8" />
       <module name="repository" target="1.8" />
+      <module name="security" target="11" />
       <module name="service" target="1.8" />
       <module name="webApp" target="1.8" />
     </bytecodeTargetLevel>
@@ -40,6 +47,7 @@
       <module name="library-management-system" options="" />
       <module name="model" options="-parameters" />
       <module name="repository" options="-parameters" />
+      <module name="security" options="-parameters" />
       <module name="service" options="-parameters" />
       <module name="webApp" options="-parameters" />
     </option>

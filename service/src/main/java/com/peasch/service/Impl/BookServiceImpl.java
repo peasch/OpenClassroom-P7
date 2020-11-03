@@ -24,6 +24,7 @@ public class BookServiceImpl implements BookService {
     private AuthorDao authorDao;
 
 
+
     public List<BookDto> getBooks() {
         List<BookDto> booksDto = new ArrayList<>();
         List<Book> books = bookDao.findAll();
@@ -33,8 +34,9 @@ public class BookServiceImpl implements BookService {
         return booksDto;
     }
 
-    public Book findById(Integer id) {
-        return bookDao.findById(id).get();
+    public BookDto findById(Integer id) {
+        return mapper.fromBookToDto(bookDao.findById(id).get());
+
 
     }
 
@@ -44,11 +46,28 @@ public class BookServiceImpl implements BookService {
 
     public List<BookDto> findBooksByAuthor_Name(String authorName){
         List<BookDto> bookDtoSearched = new ArrayList<>();
-        List<Book> bookSearched = bookDao.findBooksByAuthor_NameLike(authorName);
+        List<Book> bookSearched = bookDao.findBooksByAuthor_NameLike("%"+authorName+"%");
         for (Book book : bookSearched){
             bookDtoSearched.add(mapper.fromBookToDto(book));
         }
         return bookDtoSearched;
+    }
+
+    public List<BookDto> findBooksByTitle(String title){
+        List<BookDto> booksDtoSearched = new ArrayList<>();
+        List<Book> bookSearched = bookDao.findBooksByTitleLike("%"+title+"%");
+        for (Book book : bookSearched){
+            booksDtoSearched.add(mapper.fromBookToDto(book));
+        }
+        return booksDtoSearched;
+    }
+    public  List<BookDto> findBooksByResearch(Research research){
+        List<BookDto> booksDtoResearched = new ArrayList<>();
+        List<Book> bookSearched = bookDao.findBooksByTitleLikeAndAuthor_NameLikeAndCategory_NameLike("%"+research.getResearchTitle()+"%","%"+research.getResearchAuthor()+"%","%"+research.getResearchCategory()+"%");
+        for (Book book : bookSearched){
+            booksDtoResearched.add(mapper.fromBookToDto(book));
+        }
+        return booksDtoResearched;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.peasch.controller;
 
+import com.peasch.model.dto.LibraryDto;
 import com.peasch.model.entities.Borrowing;
 import com.peasch.model.entities.Library;
 import com.peasch.service.BorrowingService;
@@ -17,7 +18,7 @@ public class LibraryController {
 
 
     @GetMapping("/libraries")
-    public List<Library> getLibraries(){
+    public List<LibraryDto> getLibraries(){
         return service.getLibraries();
     }
 

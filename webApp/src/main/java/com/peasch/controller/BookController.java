@@ -18,8 +18,7 @@ public class BookController {
 
     @Autowired
     private BookService service;
-    @Autowired
-    private AuthorService autService;
+
 
     @GetMapping
     public List<BookDto> getBooks(){
@@ -27,7 +26,7 @@ public class BookController {
     }
 
     @GetMapping("{id}")
-    public Book getBookById(@PathVariable(value = "id")Integer id){
+    public BookDto getBookById(@PathVariable(value = "id")Integer id){
         return service.findById(id);
     }
 
@@ -37,10 +36,9 @@ public class BookController {
     }
 
     @PostMapping("search")
-    public List<BookDto> findBooksByAuthor(@RequestBody Research research){
-        String authorString = research.getResearchAuthor();
-       List<BookDto> books =service.findBooksByAuthor_Name(authorString);
-        return books;
+    public List<BookDto> findBooksByAuthor(@RequestBody Research research){ ;
+        return service.findBooksByResearch(research);
+
     }
 
 }

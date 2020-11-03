@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/copies")
@@ -30,5 +31,9 @@ public class CopyController {
     @PostMapping("add")
     public void addCopy (@RequestBody Copy copy){
         service.save(copy);
+    }
+    @GetMapping("book/{id}")
+    public Map<Integer,Integer> getCopiesofBookInLibraries(@PathVariable(value="id")Integer id){
+        return service.findCopiesInLibrary(id);
     }
 }

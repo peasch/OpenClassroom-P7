@@ -33,8 +33,13 @@ public class BookDto implements Serializable {
     }
 
 
+    public String getCover() {
+        return cover;
+    }
 
-
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
 
     public int getId() {
         return id;

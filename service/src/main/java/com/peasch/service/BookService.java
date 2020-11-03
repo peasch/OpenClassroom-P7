@@ -11,9 +11,12 @@ public interface BookService {
 
     List<BookDto> getBooks();
 
-    Book findById(Integer id);
+    BookDto findById(Integer id);
 
     Book save(Book book);
 
     List<BookDto> findBooksByAuthor_Name(String author);
+    List<BookDto> findBooksByTitle(String title);
+    List<BookDto> findBooksByResearch(Research research);
+
 }

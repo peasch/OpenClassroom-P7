@@ -1,4 +1,6 @@
 package com.peasch.model.entities;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
