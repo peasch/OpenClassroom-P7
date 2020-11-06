@@ -18,6 +18,8 @@ public class UserController {
     @Autowired
     private UserService service;
 
+
+
     @GetMapping(value="/users")
     public List<UserDto> getUsers() {
         return service.getUsers();
@@ -34,4 +36,9 @@ public class UserController {
     public void addUser(@RequestBody UserDto userDto) {
         service.save(userDto);
     }
+
+   /* @PostMapping("/login")
+    public UserDto login(@RequestBody UserDto userDto){
+
+    }*/
 }

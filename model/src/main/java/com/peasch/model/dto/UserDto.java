@@ -1,5 +1,6 @@
 package com.peasch.model.dto;
 import com.peasch.model.entities.Borrowing;
+import com.peasch.model.entities.Role;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -17,11 +18,12 @@ public class UserDto implements Serializable {
     private String firstName;
     private String birthDate;
     private Set<Borrowing> borrowings = new HashSet<>();
+    private Set <Role> roles = new HashSet <> ();
 
     public UserDto() {
     }
 
-    public UserDto(int id, String userName, String password, String email, String name, String firstName, String birthDate, Set<Borrowing> borrowings) {
+    public UserDto(int id, String userName, String password, String email, String name, String firstName, String birthDate, Set<Borrowing> borrowings, Set<Role> roles) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -30,8 +32,8 @@ public class UserDto implements Serializable {
         this.firstName = firstName;
         this.birthDate = birthDate;
         this.borrowings = borrowings;
+        this.roles = roles;
     }
-
 
     public int getId() {
         return id;
@@ -98,5 +100,11 @@ public class UserDto implements Serializable {
         this.borrowings = borrowings;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

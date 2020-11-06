@@ -10,5 +10,6 @@ public interface UserService {
     List<UserDto> getUsers();
     UserDto findById(Integer id);
     UserDto save(UserDto userDto);
+    UserDto findUserByUsername(String username);
 
 }

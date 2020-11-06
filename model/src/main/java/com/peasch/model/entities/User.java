@@ -1,5 +1,6 @@
 package com.peasch.model.entities;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name="user")
 
-public class User implements Serializable {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,11 +32,14 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Borrowing> borrowings = new HashSet<>();
 
+    @ManyToMany(mappedBy = "users")
+    private Set < Role > roles = new HashSet <> ();
+
     public User() {
     }
 
-    public User(int id, String userName, String password, String email, String name, String firstName, String birthDate, Set<Borrowing> borrowings) {
-        this.id = id;
+
+    public User(String userName, String password, String email, String name, String firstName, String birthDate, Set<Borrowing> borrowings, Set<Role> roles) {
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -43,6 +47,7 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.birthDate = birthDate;
         this.borrowings = borrowings;
+        this.roles = roles;
     }
 
     public int getId() {
@@ -108,6 +113,14 @@ public class User implements Serializable {
 
     public void setBorrowings(Set<Borrowing> borrowings) {
         this.borrowings = borrowings;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
 

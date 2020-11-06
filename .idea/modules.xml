@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/library-management-system.iml" filepath="$PROJECT_DIR$/library-management-system.iml" />
       <module fileurl="file://$PROJECT_DIR$/model/model.iml" filepath="$PROJECT_DIR$/model/model.iml" />
       <module fileurl="file://$PROJECT_DIR$/repository/repository.iml" filepath="$PROJECT_DIR$/repository/repository.iml" />
-      <module fileurl="file://$PROJECT_DIR$/security/security.iml" filepath="$PROJECT_DIR$/security/security.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
       <module fileurl="file://$PROJECT_DIR$/webApp/webApp.iml" filepath="$PROJECT_DIR$/webApp/webApp.iml" />
     </modules>

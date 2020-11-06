@@ -3,14 +3,22 @@ package com.peasch.service.Impl;
 import com.mysql.cj.xdevapi.Client;
 import com.peasch.model.dto.UserDto;
 import com.peasch.model.dto.mapper.UserMapper;
+import com.peasch.model.entities.Role;
 import com.peasch.model.entities.User;
 import com.peasch.repository.dao.UserDao;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -40,4 +48,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.fromUserToDto(userDao.save(userMapper.fromDtoToUser(userDto)));
 
     }
+
+    public UserDto findUserByUsername(String username){
+    return userMapper.fromUserToDto(userDao.findByUserName(username));
+    }
+
 }
