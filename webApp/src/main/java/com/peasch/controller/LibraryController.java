@@ -23,7 +23,7 @@ public class LibraryController {
     }
 
     @GetMapping("/libraries/{id}")
-    public Library getLibraryById(@PathVariable(value = "id")Integer id){
+    public LibraryDto getLibraryById(@PathVariable(value = "id")Integer id){
         return service.findById(id);
     }
 

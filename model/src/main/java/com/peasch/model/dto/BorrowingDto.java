@@ -1,9 +1,5 @@
 package com.peasch.model.dto;
 
-import com.peasch.model.entities.Copy;
-import com.peasch.model.entities.User;
-import lombok.*;
-
 import java.io.Serializable;
 
 
@@ -13,24 +9,12 @@ public class BorrowingDto implements Serializable {
     private String borrowingDate;
     private String returnDate;
     private boolean extended;
-    private User user;
-    private Copy copy;
+    private UserDto user;
+    private CopyDto copy;
     private Boolean returned;
 
     public BorrowingDto() {
     }
-
-    public BorrowingDto(int id, String borrowingDate, String returnDate, boolean extended, User user, Copy copy, Boolean returned) {
-        this.id = id;
-        this.borrowingDate = borrowingDate;
-        this.returnDate = returnDate;
-        this.extended = extended;
-        this.user = user;
-        this.copy = copy;
-        this.returned = returned;
-    }
-
-
 
 
     public int getId() {
@@ -65,19 +49,19 @@ public class BorrowingDto implements Serializable {
         this.extended = extended;
     }
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
-    public Copy getCopy() {
+    public CopyDto getCopy() {
         return copy;
     }
 
-    public void setCopy(Copy copy) {
+    public void setCopy(CopyDto copy) {
         this.copy = copy;
     }
 

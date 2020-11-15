@@ -1,6 +1,7 @@
 package com.peasch.controller.security.config;
 
 import com.peasch.controller.security.service.CustomUserDetailsService;
+import com.peasch.model.dto.RoleDto;
 import com.peasch.model.entities.Role;
 import com.peasch.service.Impl.UserServiceImpl;
 import io.jsonwebtoken.*;
@@ -34,7 +35,7 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, Set<Role> set) { // Nous créons le Token : nous retrouvons les Claims dont nous avons parlé dans le cou
+    public String createToken(String username, Set<RoleDto> set) { // Nous créons le Token : nous retrouvons les Claims dont nous avons parlé dans le cou
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", set);
         Date now = new Date();

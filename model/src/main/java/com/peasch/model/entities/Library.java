@@ -27,22 +27,13 @@ public class Library {
     @Column(name="email")
     private String email;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "library",fetch = FetchType.LAZY)
     private Set<Copy> copies = new HashSet<>();
 
     public Library() {
     }
 
-    public Library(int id, String name, String adress, String phone, String email, Set<User> users, Set<Copy> copies) {
-        this.id = id;
-        this.name = name;
-        this.adress = adress;
-        this.phone = phone;
-        this.email = email;
-
-        this.copies = copies;
-    }
 
 
 

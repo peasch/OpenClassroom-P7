@@ -21,6 +21,7 @@ public class AuthorServiceImpl implements AuthorService {
     AuthorDao authorDao;
     @Autowired
     AuthorMapper mapper;
+
     public List<AuthorDto> getAuthors(){
         List<AuthorDto> authorDtos = new ArrayList<>();
         List<Author> authors = authorDao.findAll();

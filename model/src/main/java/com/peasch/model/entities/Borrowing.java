@@ -1,5 +1,6 @@
 package com.peasch.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,23 +22,15 @@ public class Borrowing {
     @Column(name="returned")
     private Boolean returned;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_copy")
     private Copy copy;
 
-    public Borrowing(int id, String borrowingDate, String returnDate, boolean extended, Boolean returned, User user, Copy copy) {
-        this.id = id;
-        this.borrowingDate = borrowingDate;
-        this.returnDate = returnDate;
-        this.extended = extended;
-        this.returned = returned;
-        this.user = user;
-        this.copy = copy;
-    }
+
 
     public Borrowing() {
     }

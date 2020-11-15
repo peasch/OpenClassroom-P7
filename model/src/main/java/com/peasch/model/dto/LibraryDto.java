@@ -15,27 +15,12 @@ public class LibraryDto implements Serializable {
     private String adress;
     private String phone;
     private String email;
-    private Set<User> Users = new HashSet<>();
-    private Set<Copy> copies = new HashSet<>();
+    private Set<CopyDto> copies = new HashSet<>();
 
     public LibraryDto() {
     }
 
-    public LibraryDto(int id, String name, String adress, String phone, String email, Set<User> users, Set<Copy> copies) {
-        this.id = id;
-        this.name = name;
-        this.adress = adress;
-        this.phone = phone;
-        this.email = email;
-        Users = users;
-        this.copies = copies;
-    }
-
-
-
-
-
-    public int getId() {
+     public int getId() {
         return id;
     }
 
@@ -75,19 +60,11 @@ public class LibraryDto implements Serializable {
         this.email = email;
     }
 
-    public Set<User> getUsers() {
-        return Users;
-    }
-
-    public void setUsers(Set<User> users) {
-        Users = users;
-    }
-
-    public Set<Copy> getCopies() {
+    public Set<CopyDto> getCopies() {
         return copies;
     }
 
-    public void setCopies(Set<Copy> copies) {
+    public void setCopies(Set<CopyDto> copies) {
         this.copies = copies;
     }
 }

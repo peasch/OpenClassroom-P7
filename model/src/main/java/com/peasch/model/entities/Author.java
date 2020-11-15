@@ -23,24 +23,12 @@ public class Author {
     private String birthDate;
     @Column(name = "death")
     private String deathDate;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private Set<Book> books = new HashSet<>();
 
     public Author() {
     }
-
-    public Author(int id, String name, String firstName, String birthDate, String deathDate, Set<Book> books) {
-        this.id = id;
-        this.name = name;
-        this.firstName = firstName;
-        this.birthDate = birthDate;
-        this.deathDate = deathDate;
-        this.books = books;
-    }
-
-
-
     public int getId() {
         return id;
     }

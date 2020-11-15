@@ -37,8 +37,8 @@ public class UserController {
         service.save(userDto);
     }
 
-   /* @PostMapping("/login")
-    public UserDto login(@RequestBody UserDto userDto){
-
-    }*/
+  @GetMapping("/user/username/{username}")
+    public UserDto getUserByUserName(@PathVariable(value = "username")String userName){
+        return service.findUserByUserName(userName);
+  }
 }

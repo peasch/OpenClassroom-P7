@@ -1,7 +1,5 @@
 package com.peasch.model.dto;
 
-import com.peasch.model.entities.Book;
-import lombok.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,16 +11,9 @@ public class CategoryDto implements Serializable {
     private int id;
     private String name;
     private String description;
-    private Set<Book> booksOfCategory = new HashSet<>();
+    private Set<BookDto> booksOfCategory = new HashSet<>();
 
     public CategoryDto() {
-    }
-
-    public CategoryDto(int id, String name, String description, Set<Book> booksOfCategory) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.booksOfCategory = booksOfCategory;
     }
 
 
@@ -52,11 +43,11 @@ public class CategoryDto implements Serializable {
         this.description = description;
     }
 
-    public Set<Book> getBooksOfCategory() {
+    public Set<BookDto> getBooksOfCategory() {
         return booksOfCategory;
     }
 
-    public void setBooksOfCategory(Set<Book> booksOfCategory) {
+    public void setBooksOfCategory(Set<BookDto> booksOfCategory) {
         this.booksOfCategory = booksOfCategory;
     }
 }

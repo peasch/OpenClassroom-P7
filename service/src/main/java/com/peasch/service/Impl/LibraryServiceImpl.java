@@ -29,8 +29,9 @@ public class LibraryServiceImpl implements LibraryService {
         return libs;
     }
 
-    public Library findById(Integer id){
-        return libraryDao.findById(id).get();
+    public LibraryDto findById(Integer id){
+
+        return mapper.fromLibraryToDto(libraryDao.findById(id).get());
 
     }
 

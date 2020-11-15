@@ -9,7 +9,7 @@ public interface LibraryService {
     List<LibraryDto> getLibraries();
 
 
-    Library findById(Integer id);
+    LibraryDto findById(Integer id);
 
     Library save(Library library);
 }

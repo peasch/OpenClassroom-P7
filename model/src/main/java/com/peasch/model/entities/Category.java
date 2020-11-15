@@ -21,19 +21,14 @@ public class Category implements Serializable {
     @Column(name="description")
     private String description;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     private Set<Book> booksOfCategory = new HashSet<>();
 
     public Category() {
     }
 
-    public Category(int id, String name, String description, Set<Book> booksOfCategory) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.booksOfCategory = booksOfCategory;
-    }
+
 
 
 

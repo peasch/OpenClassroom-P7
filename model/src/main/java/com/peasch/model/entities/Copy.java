@@ -17,24 +17,18 @@ public class Copy {
     @Column(name="available")
     private boolean available;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_book")
     private Book book;
 
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_library")
     private Library library;
 
     public Copy() {
     }
 
-    public Copy(int id, boolean available, Book book, Library library) {
-        this.id = id;
-        this.available = available;
-        this.book = book;
-        this.library = library;
-    }
+
 
 
 

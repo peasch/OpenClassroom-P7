@@ -1,20 +1,25 @@
 package com.peasch.model.dto.mapper;
 
 import com.peasch.model.dto.AuthorDto;
+import com.peasch.model.dto.BookDto;
 import com.peasch.model.entities.Author;
 import com.peasch.model.entities.Book;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.Generated;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-11-04T14:26:47+0100",
+    date = "2020-11-13T15:12:48+0100",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 12.0.2 (Oracle Corporation)"
 )
 @Component
 public class AuthorMapperImpl implements AuthorMapper {
+
+    @Autowired
+    private BookMapper bookMapper;
 
     @Override
     public Author fromDtoToAuthor(AuthorDto authorDto) {
@@ -29,10 +34,7 @@ public class AuthorMapperImpl implements AuthorMapper {
         author.setFirstName( authorDto.getFirstName() );
         author.setBirthDate( authorDto.getBirthDate() );
         author.setDeathDate( authorDto.getDeathDate() );
-        Set<Book> set = authorDto.getBooks();
-        if ( set != null ) {
-            author.setBooks( new HashSet<Book>( set ) );
-        }
+        author.setBooks( bookDtoSetToBookSet( authorDto.getBooks() ) );
 
         return author;
     }
@@ -50,11 +52,34 @@ public class AuthorMapperImpl implements AuthorMapper {
         authorDto.setFirstName( author.getFirstName() );
         authorDto.setBirthDate( author.getBirthDate() );
         authorDto.setDeathDate( author.getDeathDate() );
-        Set<Book> set = author.getBooks();
-        if ( set != null ) {
-            authorDto.setBooks( new HashSet<Book>( set ) );
-        }
+        authorDto.setBooks( bookSetToBookDtoSet( author.getBooks() ) );
 
         return authorDto;
+    }
+
+    protected Set<Book> bookDtoSetToBookSet(Set<BookDto> set) {
+        if ( set == null ) {
+            return null;
+        }
+
+        Set<Book> set1 = new HashSet<Book>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
+        for ( BookDto bookDto : set ) {
+            set1.add( bookMapper.fromDtoToBook( bookDto ) );
+        }
+
+        return set1;
+    }
+
+    protected Set<BookDto> bookSetToBookDtoSet(Set<Book> set) {
+        if ( set == null ) {
+            return null;
+        }
+
+        Set<BookDto> set1 = new HashSet<BookDto>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
+        for ( Book book : set ) {
+            set1.add( bookMapper.fromBookToDto( book ) );
+        }
+
+        return set1;
     }
 }

@@ -12,7 +12,7 @@ public class Role {
     private Integer id;
     @Column(name = "role")
     private String role;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_has_role",
             joinColumns = {
@@ -22,15 +22,11 @@ public class Role {
                     @JoinColumn(name = "user_id")
             }
     )
-    Set < User > users = new HashSet<>();
+    Set<User> users = new HashSet<>();
 
     public Role() {
     }
 
-    public Role(String role, Set<User> users) {
-        this.role = role;
-        this.users = users;
-    }
 
     public Integer getId() {
         return id;

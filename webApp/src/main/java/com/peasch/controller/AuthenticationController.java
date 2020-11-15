@@ -34,16 +34,16 @@ public class AuthenticationController {
     @SuppressWarnings("rawtypes")
     @PostMapping("/login")
     public String login(@RequestBody AuthBody data) throws AuthenticationException {
-        String username = data.getUsername();
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword())); // Et voilà le point d'entrée
-        String token = jwtTokenProvider.createToken(username, this.users.findUserByUsername(username).getRoles()); // Création du token !
+        String userName = data.getUserName();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, data.getPassword())); // Et voilà le point d'entrée
+        String token = jwtTokenProvider.createToken(userName, users.findUserByUserName(userName).getRoles()); // Création du token !
         System.out.println(token);
         return token;
     }
     @SuppressWarnings("rawtypes")
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody UserDto user) {
-        UserDto userExists = users.findUserByUsername(user.getEmail());
+        UserDto userExists = users.findUserByUserName(user.getEmail());
         if (userExists != null) {
             throw new BadCredentialsException("User with username: " + user.getEmail() + " already exists");
         }

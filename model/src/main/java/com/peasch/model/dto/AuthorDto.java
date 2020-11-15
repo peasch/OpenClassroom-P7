@@ -13,19 +13,12 @@ public class AuthorDto implements Serializable {
     private String firstName;
     private String birthDate;
     private String deathDate;
-    private Set<Book> books = new HashSet<>();
+    private Set<BookDto> books = new HashSet<>();
 
     public AuthorDto() {
     }
 
-    public AuthorDto(int id, String name, String firstName, String birthDate, String deathDate, Set<Book> books) {
-        this.id = id;
-        this.name = name;
-        this.firstName = firstName;
-        this.birthDate = birthDate;
-        this.deathDate = deathDate;
-        this.books = books;
-    }
+
 
 
     public int getId() {
@@ -68,11 +61,11 @@ public class AuthorDto implements Serializable {
         this.deathDate = deathDate;
     }
 
-    public Set<Book> getBooks() {
+    public Set<BookDto> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Book> books) {
+    public void setBooks(Set<BookDto> books) {
         this.books = books;
     }
 }

@@ -10,7 +10,7 @@ public interface CopyService {
 
     List<Copy> getCopies();
 
-    Copy findById(Integer id);
+    CopyDto findById(Integer id);
 
     Copy save(Copy copy);
 

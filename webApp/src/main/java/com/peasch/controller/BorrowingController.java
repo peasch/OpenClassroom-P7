@@ -1,5 +1,6 @@
 package com.peasch.controller;
 
+import com.peasch.model.dto.BorrowingDto;
 import com.peasch.model.entities.Author;
 import com.peasch.model.entities.Borrowing;
 import com.peasch.service.AuthorService;
@@ -18,12 +19,12 @@ public class BorrowingController {
 
 
     @GetMapping
-    public List<Borrowing> getBorrowings(){
+    public List<BorrowingDto> getBorrowings(){
         return service.getBorrowings();
     }
 
     @GetMapping("{id}")
-    public Borrowing getUserById(@PathVariable(value = "id")Integer id){
+    public BorrowingDto getUserById(@PathVariable(value = "id")Integer id){
         return service.findById(id);
     }
 

@@ -10,18 +10,12 @@ public class CopyDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private int id;
     private boolean available;
-    private Book book;
-    private Library library;
+    private BookDto book;
+    private LibraryDto library;
 
     public CopyDto() {
     }
 
-    public CopyDto(int id, boolean available, Book book, Library library) {
-        this.id = id;
-        this.available = available;
-        this.book = book;
-        this.library = library;
-    }
 
 
 
@@ -41,19 +35,19 @@ public class CopyDto implements Serializable {
         this.available = available;
     }
 
-    public Book getBook() {
+    public BookDto getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(BookDto book) {
         this.book = book;
     }
 
-    public Library getLibrary() {
+    public LibraryDto getLibrary() {
         return library;
     }
 
-    public void setLibrary(Library library) {
+    public void setLibrary(LibraryDto library) {
         this.library = library;
     }
 }

@@ -1,5 +1,6 @@
 package com.peasch.controller.security.service;
 
+import com.peasch.model.dto.RoleDto;
 import com.peasch.model.dto.UserDto;
 import com.peasch.model.entities.Role;
 import com.peasch.model.entities.User;
@@ -34,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto user = userService.findUserByUsername(username);
+        UserDto user = userService.findUserByUserName(username);
         if(user != null) {
             List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
             return buildUserForAuthentication(user, authorities);
@@ -45,7 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public void saveUser(UserDto user) { // Pour sauver un nouvel utilisateur
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role userRole = roleDao.findByRole("USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet(Arrays.asList(userRole)));
         userService.save(user);
     }
 
@@ -57,7 +58,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return Collections.unmodifiableSet(new HashSet<GrantedAuthority>(authentication.getAuthorities()));
     }
 
-    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) { // Nous créons les rôles reconnus par Spring Security qui permettra ou non
+    private List<GrantedAuthority> getUserAuthority(Set<RoleDto> userRoles) { // Nous créons les rôles reconnus par Spring Security qui permettra ou non
         Set<GrantedAuthority> roles = new HashSet<>(); // à l'utilisateur d'accéder à une page.
         userRoles.forEach((role) -> {
             roles.add(new SimpleGrantedAuthority(role.getRole()));

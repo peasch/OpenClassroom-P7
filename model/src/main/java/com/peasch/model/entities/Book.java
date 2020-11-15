@@ -21,32 +21,20 @@ public class Book {
     private String summary;
     @Column(name="cover")
     private String cover;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_category")
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_author")
     private Author author;
-    @JsonIgnore
+
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private Set<Copy> copiesOfBook = new HashSet<>();
 
     public Book() {
     }
-
-    public Book(int id, String title, String summary, String cover, Category category, Author author, Set<Copy> copiesOfBook) {
-        this.id = id;
-        this.title = title;
-        this.summary = summary;
-        this.cover = cover;
-        this.category = category;
-        this.author = author;
-        this.copiesOfBook = copiesOfBook;
-    }
-
-
-
     public String getCover() {
         return cover;
     }

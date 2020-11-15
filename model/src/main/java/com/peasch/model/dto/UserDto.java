@@ -1,7 +1,4 @@
 package com.peasch.model.dto;
-import com.peasch.model.entities.Borrowing;
-import com.peasch.model.entities.Role;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,29 +8,26 @@ public class UserDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private int id;
+
     private String userName;
+
     private String password;
+
     private String email;
+
     private String name;
+
     private String firstName;
+
     private String birthDate;
-    private Set<Borrowing> borrowings = new HashSet<>();
-    private Set <Role> roles = new HashSet <> ();
+
+    private Set<BorrowingDto> borrowings = new HashSet<>();
+
+    private Set <RoleDto> roles = new HashSet <> ();
 
     public UserDto() {
     }
 
-    public UserDto(int id, String userName, String password, String email, String name, String firstName, String birthDate, Set<Borrowing> borrowings, Set<Role> roles) {
-        this.id = id;
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.firstName = firstName;
-        this.birthDate = birthDate;
-        this.borrowings = borrowings;
-        this.roles = roles;
-    }
 
     public int getId() {
         return id;
@@ -91,20 +85,19 @@ public class UserDto implements Serializable {
         this.birthDate = birthDate;
     }
 
-
-    public Set<Borrowing> getBorrowings() {
+    public Set<BorrowingDto> getBorrowings() {
         return borrowings;
     }
 
-    public void setBorrowings(Set<Borrowing> borrowings) {
+    public void setBorrowings(Set<BorrowingDto> borrowings) {
         this.borrowings = borrowings;
     }
 
-    public Set<Role> getRoles() {
+    public Set<RoleDto> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<RoleDto> roles) {
         this.roles = roles;
     }
 }

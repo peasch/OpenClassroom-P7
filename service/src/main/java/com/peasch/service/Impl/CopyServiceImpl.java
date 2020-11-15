@@ -2,11 +2,15 @@ package com.peasch.service.Impl;
 
 import com.peasch.model.dto.CopyDto;
 import com.peasch.model.dto.LibraryDto;
+import com.peasch.model.dto.mapper.BookMapper;
 import com.peasch.model.dto.mapper.CopyMapper;
+import com.peasch.model.dto.mapper.LibraryMapper;
 import com.peasch.model.entities.Copy;
 import com.peasch.model.entities.Library;
 import com.peasch.repository.dao.CopyDao;
 import com.peasch.repository.dao.LibraryDao;
+import com.peasch.service.AuthorService;
+import com.peasch.service.BookService;
 import com.peasch.service.CopyService;
 import com.peasch.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +24,23 @@ public class CopyServiceImpl implements CopyService {
     private CopyDao copyDao;
     @Autowired
     private CopyMapper mapper;
+
     @Autowired
     private LibraryService libService;
+
+    @Autowired
+    private BookService bookService;
 
     public List<Copy> getCopies(){
         return copyDao.findAll();
     }
 
-    public Copy findById(Integer id){
-        return copyDao.findById(id).get();
+    public CopyDto findById(Integer id){
+
+        CopyDto copy =mapper.fromCopyToDto(copyDao.findById(id).get());
+        copy.setBook(bookService.findById(copyDao.findById(id).get().getBook().getId()));
+        copy.setLibrary(libService.findById(copyDao.findById(id).get().getLibrary().getId()));
+        return copy;
 
     }
 

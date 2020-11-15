@@ -1,5 +1,6 @@
 package com.peasch.controller;
 
+import com.peasch.model.dto.CopyDto;
 import com.peasch.model.entities.Borrowing;
 import com.peasch.model.entities.Copy;
 import com.peasch.service.BorrowingService;
@@ -24,7 +25,7 @@ public class CopyController {
     }
 
     @GetMapping("{id}")
-    public Copy getCopyById(@PathVariable(value = "id")Integer id){
+    public CopyDto getCopyById(@PathVariable(value = "id")Integer id){
         return service.findById(id);
     }
 

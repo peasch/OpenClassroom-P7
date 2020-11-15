@@ -10,15 +10,11 @@ public class RoleDto implements Serializable {
 
     private Integer id;
     private String role;
-    private Set<User> users =new HashSet<>();
+    private Set<UserDto> users =new HashSet<>();
 
     public RoleDto() {
     }
 
-    public RoleDto(String role, Set<User> users) {
-        this.role = role;
-        this.users = users;
-    }
 
     public Integer getId() {
         return id;
@@ -36,11 +32,11 @@ public class RoleDto implements Serializable {
         this.role = role;
     }
 
-    public Set<User> getUsers() {
+    public Set<UserDto> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<UserDto> users) {
         this.users = users;
     }
 }

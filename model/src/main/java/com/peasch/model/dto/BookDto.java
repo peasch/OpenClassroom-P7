@@ -1,8 +1,5 @@
 package com.peasch.model.dto;
-import com.peasch.model.entities.Author;
-import com.peasch.model.entities.Category;
-import com.peasch.model.entities.Copy;
-import lombok.*;
+
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -14,23 +11,15 @@ public class BookDto implements Serializable {
     private int id;
     private String title;
     private String summary;
-    private Category category;
-    private Author author;
+    private CategoryDto category;
+    private AuthorDto author;
     private String cover;
-    private Set<Copy> copiesOfBook = new HashSet<>();
+    private Set<CopyDto> copiesOfBook = new HashSet<>();
 
     public BookDto() {
     }
 
-    public BookDto(int id, String title, String summary, Category category, Author author, String cover, Set<Copy> copiesOfBook) {
-        this.id = id;
-        this.title = title;
-        this.summary = summary;
-        this.category = category;
-        this.author = author;
-        this.cover = cover;
-        this.copiesOfBook = copiesOfBook;
-    }
+
 
 
     public String getCover() {
@@ -65,27 +54,27 @@ public class BookDto implements Serializable {
         this.summary = summary;
     }
 
-    public Category getCategory() {
+    public CategoryDto getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryDto category) {
         this.category = category;
     }
 
-    public Author getAuthor() {
+    public AuthorDto getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(AuthorDto author) {
         this.author = author;
     }
 
-    public Set<Copy> getCopiesOfBook() {
+    public Set<CopyDto> getCopiesOfBook() {
         return copiesOfBook;
     }
 
-    public void setCopiesOfBook(Set<Copy> copiesOfBook) {
+    public void setCopiesOfBook(Set<CopyDto> copiesOfBook) {
         this.copiesOfBook = copiesOfBook;
     }
 }

@@ -1,4 +1,5 @@
 package com.peasch.model.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -32,23 +33,13 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Borrowing> borrowings = new HashSet<>();
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users",fetch = FetchType.LAZY)
     private Set < Role > roles = new HashSet <> ();
 
     public User() {
     }
 
 
-    public User(String userName, String password, String email, String name, String firstName, String birthDate, Set<Borrowing> borrowings, Set<Role> roles) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.firstName = firstName;
-        this.birthDate = birthDate;
-        this.borrowings = borrowings;
-        this.roles = roles;
-    }
 
     public int getId() {
         return id;
