@@ -1,11 +1,11 @@
-package com.peasch.model.dto;
-import com.peasch.model.entities.Book;
-import lombok.*;
+package com.peasch.model.dto.Author;
+import com.googlecode.jmapper.annotations.JGlobalMap;
+import com.peasch.model.dto.Book.BookDto;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
+@JGlobalMap
 public class AuthorDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private int id;
@@ -13,13 +13,10 @@ public class AuthorDto implements Serializable {
     private String firstName;
     private String birthDate;
     private String deathDate;
-    private Set<BookDto> books = new HashSet<>();
+
 
     public AuthorDto() {
     }
-
-
-
 
     public int getId() {
         return id;
@@ -61,11 +58,5 @@ public class AuthorDto implements Serializable {
         this.deathDate = deathDate;
     }
 
-    public Set<BookDto> getBooks() {
-        return books;
-    }
 
-    public void setBooks(Set<BookDto> books) {
-        this.books = books;
-    }
 }

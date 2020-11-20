@@ -1,14 +1,11 @@
 package com.peasch.service;
 
-import com.peasch.model.dto.CategoryDto;
-import com.peasch.model.entities.Book;
-import com.peasch.model.entities.Category;
+import com.peasch.model.dto.Categories.CategoryDto;
 
 import java.util.List;
 
 public interface CategoryService {
-
-    List<CategoryDto> getCategories();
+   List<CategoryDto> getCategories();
 
     CategoryDto findById(Integer id);
 

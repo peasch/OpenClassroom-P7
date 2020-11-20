@@ -1,9 +1,8 @@
 package com.peasch.controller.security.config;
 
 import com.peasch.controller.security.service.CustomUserDetailsService;
-import com.peasch.model.dto.RoleDto;
-import com.peasch.model.entities.Role;
-import com.peasch.service.Impl.UserServiceImpl;
+
+import com.peasch.model.dto.Role.RoleDto;
 import io.jsonwebtoken.*;
 
 

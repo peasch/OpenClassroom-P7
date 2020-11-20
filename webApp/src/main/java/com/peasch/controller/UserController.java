@@ -1,12 +1,8 @@
 package com.peasch.controller;
 
-import com.peasch.model.dto.UserDto;
-import com.peasch.model.dto.mapper.UserMapper;
-import com.peasch.model.entities.User;
-import com.peasch.service.Impl.UserServiceImpl;
+import com.peasch.model.dto.User.UserDto;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

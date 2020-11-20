@@ -1,7 +1,7 @@
 package com.peasch.model.dto.mapper;
 
-import com.peasch.model.dto.BookDto;
-import com.peasch.model.dto.CategoryDto;
+import com.peasch.model.dto.Book.BookDto;
+import com.peasch.model.dto.Categories.CategoryDto;
 import com.peasch.model.entities.Book;
 import com.peasch.model.entities.Category;
 import java.util.HashSet;

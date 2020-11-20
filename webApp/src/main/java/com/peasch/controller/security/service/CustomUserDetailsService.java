@@ -1,14 +1,14 @@
 package com.peasch.controller.security.service;
 
-import com.peasch.model.dto.RoleDto;
-import com.peasch.model.dto.UserDto;
+import com.googlecode.jmapper.JMapper;
+import com.peasch.model.dto.Role.RoleDto;
+import com.peasch.model.dto.User.UserDto;
+import com.peasch.model.dto.User.UserWithRoleDTO;
 import com.peasch.model.entities.Role;
-import com.peasch.model.entities.User;
 import com.peasch.repository.dao.RoleDao;
-import com.peasch.repository.dao.UserDao;
+import com.peasch.service.RoleService;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +27,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
     @Autowired
-    private RoleDao roleDao;
+    private RoleService roleService;
 
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto user = userService.findUserByUserName(username);
+        UserWithRoleDTO user = userService.findUserByUserNameWithRole(username);
         if(user != null) {
             List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
             return buildUserForAuthentication(user, authorities);
@@ -43,12 +42,14 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("username not found");
         }
     }
-    public void saveUser(UserDto user) { // Pour sauver un nouvel utilisateur
+    public void saveUser(UserWithRoleDTO user) { // Pour sauver un nouvel utilisateur
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Role userRole = roleDao.findByRole("USER");
-        user.setRoles(new HashSet(Arrays.asList(userRole)));
+        RoleDto userRole = roleService.findByRole("USER");
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userService.save(user);
     }
+
+
 
     public Set<GrantedAuthority> getAuthorities() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -58,15 +59,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         return Collections.unmodifiableSet(new HashSet<GrantedAuthority>(authentication.getAuthorities()));
     }
 
-    private List<GrantedAuthority> getUserAuthority(Set<RoleDto> userRoles) { // Nous créons les rôles reconnus par Spring Security qui permettra ou non
-        Set<GrantedAuthority> roles = new HashSet<>(); // à l'utilisateur d'accéder à une page.
+    private List<GrantedAuthority> getUserAuthority(Set<RoleDto> userRoles) {
+        Set<GrantedAuthority> roles = new HashSet<>();
         userRoles.forEach((role) -> {
             roles.add(new SimpleGrantedAuthority(role.getRole()));
         });
-        return new ArrayList<>(roles);
-
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
+        return grantedAuthorities;
     }
-    private UserDetails buildUserForAuthentication(UserDto user, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+    private UserDetails buildUserForAuthentication(UserWithRoleDTO user, List<GrantedAuthority> authorities) {
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), authorities);
     }
 }

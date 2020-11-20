@@ -2,8 +2,9 @@ package com.peasch.controller;
 
 import com.peasch.controller.security.config.JwtTokenProvider;
 import com.peasch.controller.security.service.CustomUserDetailsService;
-import com.peasch.model.dto.AuthBody;
-import com.peasch.model.dto.UserDto;
+import com.peasch.model.dto.User.AuthBody;
+import com.peasch.model.dto.User.UserDto;
+import com.peasch.model.dto.User.UserWithRoleDTO;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,15 +35,20 @@ public class AuthenticationController {
     @SuppressWarnings("rawtypes")
     @PostMapping("/login")
     public String login(@RequestBody AuthBody data) throws AuthenticationException {
-        String userName = data.getUserName();
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, data.getPassword())); // Et voilà le point d'entrée
-        String token = jwtTokenProvider.createToken(userName, users.findUserByUserName(userName).getRoles()); // Création du token !
-        System.out.println(token);
-        return token;
+        try {
+            String userName = data.getUserName();
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, data.getPassword()));
+        String token = jwtTokenProvider.createToken(userName, users.findUserByUserNameWithRole(userName).getRoles());
+            System.out.println(token);
+            return token;
+        }catch (BadCredentialsException e) {
+            throw new AuthenticationException("Invalid Username/password");
+        }
+
     }
     @SuppressWarnings("rawtypes")
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody UserDto user) {
+    public ResponseEntity register(@RequestBody UserWithRoleDTO user) {
         UserDto userExists = users.findUserByUserName(user.getEmail());
         if (userExists != null) {
             throw new BadCredentialsException("User with username: " + user.getEmail() + " already exists");

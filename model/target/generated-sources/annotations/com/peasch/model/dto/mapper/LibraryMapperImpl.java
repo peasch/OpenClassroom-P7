@@ -1,7 +1,7 @@
 package com.peasch.model.dto.mapper;
 
-import com.peasch.model.dto.CopyDto;
-import com.peasch.model.dto.LibraryDto;
+import com.peasch.model.dto.copies.CopyDto;
+import com.peasch.model.dto.libraries.LibraryDto;
 import com.peasch.model.entities.Copy;
 import com.peasch.model.entities.Library;
 import java.util.HashSet;

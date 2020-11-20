@@ -1,10 +1,10 @@
 package com.peasch.service.Impl;
 
-import com.peasch.model.dto.BorrowingDto;
-import com.peasch.model.dto.UserDto;
-import com.peasch.model.dto.mapper.BorrowingMapper;
-import com.peasch.model.dto.mapper.CopyMapper;
-import com.peasch.model.dto.mapper.UserMapper;
+import com.googlecode.jmapper.JMapper;
+import com.peasch.model.dto.Borrowings.BorrowingDto;
+import com.peasch.model.dto.Borrowings.BorrowingWithAllDTO;
+import com.peasch.model.dto.User.UserDto;
+import com.peasch.model.dto.copies.CopyWithALLDTO;
 import com.peasch.model.entities.Borrowing;
 import com.peasch.model.entities.Copy;
 import com.peasch.model.entities.User;
@@ -13,61 +13,90 @@ import com.peasch.service.BorrowingService;
 import com.peasch.service.CopyService;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BorrowingServiceImpl implements BorrowingService {
     @Autowired
     private BorrowingDao borrowingDao;
     @Autowired
-    private BorrowingMapper mapper;
+    JMapper<BorrowingDto, Borrowing> borrowingToDTOMapper;
     @Autowired
-    private UserMapper userMapper;
+    private JMapper<BorrowingWithAllDTO, Borrowing> borrowingWithAllToDTOMapper;
+
     @Autowired
     private CopyService copyService;
-    @Autowired
-    private UserService userService;
 
 
     public List<BorrowingDto> getBorrowings(){
-        List<BorrowingDto> borrows = new ArrayList<>();
         List<Borrowing>borrowings = borrowingDao.findAll();
-        for(Borrowing borrowing :borrowings){
-            borrows.add(mapper.fromBorrowingToDto(borrowing));
-
-    }
-        return borrows;
+       return borrowings.stream().map(x->borrowingToDTOMapper.getDestination(x)).collect(Collectors.toList());
     }
 
 
     public BorrowingDto findById(Integer id){
-        BorrowingDto borrowingDto = mapper.fromBorrowingToDto(borrowingDao.findById(id).get());
-        borrowingDto.setCopy(copyService.findById(borrowingDao.findById(id).get().getCopy().getId()));
-        borrowingDto.setUser(userService.findById(borrowingDao.findById(id).get().getUser().getId()));
+        BorrowingDto borrowingDto = borrowingToDTOMapper.getDestination(borrowingDao.findById(id).get());
         return borrowingDto;
 
     }
+    public BorrowingWithAllDTO findByIdWithAll(Integer id){
+        Borrowing borrow =borrowingDao.findById(id).get();
+        BorrowingWithAllDTO borrowingDto = borrowingWithAllToDTOMapper.getDestination(borrow);
+        borrowingDto.setCopy(copyService.findByCopyWithAll(borrow.getCopy()));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
+        String returnDate = borrow.getReturnDate();
+        LocalDate date = LocalDate.parse(returnDate);
+        LocalDate today =LocalDate.now();
+        Period period = Period.between(today,date);
+        int fromMonths = period.getMonths();
+        borrowingDto.setDaysToGo(fromMonths*30 + period.getDays());
+        return borrowingDto;
+
+    }
+
 
     public Borrowing save(Borrowing borrowing){
         return borrowingDao.save(borrowing);
     }
 
-    public Set<BorrowingDto> findBorrowingsByUserId(Integer id) {
-        Set<BorrowingDto> borrowDtos = new HashSet<>();
+
+    public Set<BorrowingWithAllDTO> findBorrowingsByUserId(Integer id) {
+        Set<BorrowingWithAllDTO> borrowDtos = new HashSet<>();
     Set<Borrowing> borrowings = borrowingDao.findBorrowingByUser_Id(id);
     for (Borrowing borrow : borrowings){
-        borrowDtos.add(this.findById(borrow.getId()));
+        borrowDtos.add(this.findByIdWithAll(borrow.getId()));
     }
     return borrowDtos;
     }
 
 
+    public String dateToday(){
+        Locale locale = new Locale("fr", "FR");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
+        String date =  dateFormat.format(new Date());
+        return date;
+    }
+
+    public BorrowingWithAllDTO extendByIdWithAll(Integer id){
+        Borrowing borrow =borrowingDao.findById(id).get();
+        String returnDate = borrow.getReturnDate();
+        LocalDate date = LocalDate.parse(returnDate);
+        date = date.plusMonths(1);
+        borrow.setReturnDate(date.toString());
+        borrow.setExtended(true);
+        this.save(borrow);
+        BorrowingWithAllDTO borrowing = this.findByIdWithAll(id);
+        return borrowing;
+
+    }
 
 
 }

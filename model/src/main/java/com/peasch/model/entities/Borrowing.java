@@ -22,6 +22,7 @@ public class Borrowing {
     @Column(name="returned")
     private Boolean returned;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user")
     private User user;
@@ -30,12 +31,18 @@ public class Borrowing {
     @JoinColumn(name = "fk_copy")
     private Copy copy;
 
-
+    private Integer daysToGo;
 
     public Borrowing() {
     }
 
+    public Integer getDaysToGo() {
+        return daysToGo;
+    }
 
+    public void setDaysToGo(Integer daysToGo) {
+        this.daysToGo = daysToGo;
+    }
 
     public int getId() {
         return id;

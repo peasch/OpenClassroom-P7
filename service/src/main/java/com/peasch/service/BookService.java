@@ -1,7 +1,7 @@
 package com.peasch.service;
 
-import com.peasch.model.dto.BookDto;
-import com.peasch.model.entities.Author;
+import com.peasch.model.dto.Book.BookDto;
+import com.peasch.model.dto.Book.BookWithoutCopiesDTO;
 import com.peasch.model.entities.Book;
 import com.peasch.model.entities.Research;
 
@@ -11,12 +11,12 @@ public interface BookService {
 
     List<BookDto> getBooks();
 
-    BookDto findById(Integer id);
+    BookWithoutCopiesDTO findById(Integer id);
 
     Book save(Book book);
 
-    List<BookDto> findBooksByAuthor_Name(String author);
-    List<BookDto> findBooksByTitle(String title);
-    List<BookDto> findBooksByResearch(Research research);
+    /*List<BookDto> findBooksByAuthor_Name(String author);
+    List<BookDto> findBooksByTitle(String title);*/
+    List<BookWithoutCopiesDTO> findBooksByResearch(Research research);
 
 }

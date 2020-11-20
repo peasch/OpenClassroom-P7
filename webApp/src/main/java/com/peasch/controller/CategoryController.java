@@ -1,10 +1,7 @@
 package com.peasch.controller;
 
-import com.peasch.model.dto.CategoryDto;
-import com.peasch.model.entities.Category;
-import com.peasch.model.entities.Copy;
+import com.peasch.model.dto.Categories.CategoryDto;
 import com.peasch.service.CategoryService;
-import com.peasch.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

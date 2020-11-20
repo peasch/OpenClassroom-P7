@@ -1,7 +1,6 @@
 package com.peasch.service;
 
-import com.peasch.model.dto.LibraryDto;
-import com.peasch.model.entities.Library;
+import com.peasch.model.dto.libraries.LibraryDto;
 
 import java.util.List;
 
@@ -11,5 +10,5 @@ public interface LibraryService {
 
     LibraryDto findById(Integer id);
 
-    Library save(Library library);
+    LibraryDto save(LibraryDto libraryDto);
 }

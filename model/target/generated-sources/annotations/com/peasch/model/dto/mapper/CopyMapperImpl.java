@@ -1,6 +1,6 @@
 package com.peasch.model.dto.mapper;
 
-import com.peasch.model.dto.CopyDto;
+import com.peasch.model.dto.copies.CopyDto;
 import com.peasch.model.entities.Copy;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;

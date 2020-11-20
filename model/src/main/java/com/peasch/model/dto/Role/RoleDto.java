@@ -1,16 +1,17 @@
-package com.peasch.model.dto;
+package com.peasch.model.dto.Role;
 
-import com.peasch.model.entities.User;
+import com.googlecode.jmapper.annotations.JGlobalMap;
+import com.peasch.model.dto.User.UserDto;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
+@JGlobalMap
 public class RoleDto implements Serializable {
 
     private Integer id;
     private String role;
-    private Set<UserDto> users =new HashSet<>();
+
 
     public RoleDto() {
     }
@@ -32,11 +33,4 @@ public class RoleDto implements Serializable {
         this.role = role;
     }
 
-    public Set<UserDto> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<UserDto> users) {
-        this.users = users;
-    }
 }

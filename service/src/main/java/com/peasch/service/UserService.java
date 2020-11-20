@@ -1,15 +1,16 @@
 package com.peasch.service;
 
-import com.peasch.model.dto.UserDto;
-import com.peasch.model.entities.User;
+import com.peasch.model.dto.User.UserDto;
+import com.peasch.model.dto.User.UserWithAllDTO;
+import com.peasch.model.dto.User.UserWithRoleDTO;
 
 import java.util.List;
 
 public interface UserService {
-
     List<UserDto> getUsers();
     UserDto findById(Integer id);
     UserDto save(UserDto userDto);
-    UserDto findUserByUserName(String userName);
+    UserWithAllDTO findUserByUserName(String userName);
+    UserWithRoleDTO findUserByUserNameWithRole(String userName);
 
 }

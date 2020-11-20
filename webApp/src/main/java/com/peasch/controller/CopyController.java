@@ -1,9 +1,7 @@
 package com.peasch.controller;
 
-import com.peasch.model.dto.CopyDto;
-import com.peasch.model.entities.Borrowing;
+import com.peasch.model.dto.copies.CopyDto;
 import com.peasch.model.entities.Copy;
-import com.peasch.service.BorrowingService;
 import com.peasch.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,7 @@ public class CopyController {
 
 
     @GetMapping
-    public List<Copy> getCopies(){
+    public List<CopyDto> getCopies(){
         return service.getCopies();
     }
 
@@ -33,6 +31,7 @@ public class CopyController {
     public void addCopy (@RequestBody Copy copy){
         service.save(copy);
     }
+
     @GetMapping("book/{id}")
     public Map<Integer,Integer> getCopiesofBookInLibraries(@PathVariable(value="id")Integer id){
         return service.findCopiesInLibrary(id);

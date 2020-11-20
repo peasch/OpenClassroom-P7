@@ -1,28 +1,23 @@
 package com.peasch.service.Impl;
 
-import com.mysql.cj.xdevapi.Client;
-import com.peasch.model.dto.UserDto;
-import com.peasch.model.dto.mapper.BorrowingMapper;
-import com.peasch.model.dto.mapper.RoleMapper;
-import com.peasch.model.dto.mapper.UserMapper;
+import com.googlecode.jmapper.JMapper;
+import com.peasch.model.dto.Borrowings.BorrowingWithAllDTO;
+import com.peasch.model.dto.Role.RoleDto;
+import com.peasch.model.dto.User.UserDto;
+import com.peasch.model.dto.User.UserWithAllDTO;
+import com.peasch.model.dto.User.UserWithRoleDTO;
+import com.peasch.model.entities.Borrowing;
 import com.peasch.model.entities.Role;
 import com.peasch.model.entities.User;
-import com.peasch.repository.dao.BorrowingDao;
 import com.peasch.repository.dao.UserDao;
 import com.peasch.service.BorrowingService;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,46 +25,64 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Autowired
-    private BorrowingDao borrowingDao;
+    private JMapper<UserDto, User> userToDTOMapper;
     @Autowired
-    private UserMapper userMapper;
+    private JMapper<User, UserDto>  dtoToUserMapper;
     @Autowired
-    private RoleMapper roleMapper;
+    private JMapper<RoleDto, Role> roleToDTOMapper;
+    @Autowired
+    private JMapper<BorrowingWithAllDTO, Borrowing> borrowingWithAllToDTOMapper;
+    @Autowired
+    private JMapper<UserWithAllDTO, User>  userWithAllToDTOMapper;
+    @Autowired
+    private JMapper<UserWithRoleDTO, User>  userWithRoleToDTOMapper;
+
     @Autowired
     private BorrowingService borrowingService;
 
     public List<UserDto> getUsers() {
-        List<UserDto> userDtos = new ArrayList<>();
         List<User> users = userDao.findAll();
-
-        for(User user :users){
-            userDtos.add(userMapper.fromUserToDto(user));
-        }
-        return userDtos;
+        return users.stream().map(x -> userToDTOMapper.getDestination(x)).collect(Collectors.toList());
     }
 
     public UserDto findById(Integer id) {
+        User user = userDao.findById(id).get();
+        UserDto userDto = userToDTOMapper.getDestination(user);
+        return userDto;
 
-        UserDto userDto=userMapper.fromUserToDto(userDao.findById(id).get());
-        userDto.setRoles(userMapper.fromRolesToDto(userDao.findById(id).get().getRoles()));
+    }
 
+    public UserWithRoleDTO findByIdWithRole(Integer id) {
+        User user = userDao.findById(id).get();
+        UserWithRoleDTO userDto = (UserWithRoleDTO) userToDTOMapper.getDestination(user);
+        Set<Role> roles = user.getRoles();
+        userDto.setRoles(roles.stream().map(x->roleToDTOMapper.getDestination(x)).collect(Collectors.toSet()));
         return userDto;
 
     }
 
     public UserDto save(UserDto userDto) {
-        return userMapper.fromUserToDto(userDao.save(userMapper.fromDtoToUser(userDto)));
+        return userToDTOMapper.getDestination(userDao.save(dtoToUserMapper.getDestination(userDto)));
 
     }
 
-    public UserDto findUserByUserName(String userName){
-        User user =userDao.findByUserName(userName);
-        UserDto userDto=userMapper.fromUserToDto(user);
-        userDto.setRoles(userMapper.fromRolesToDto(user.getRoles()));
+    public UserWithAllDTO findUserByUserName(String userName) {
+        User user = userDao.findByUserName(userName);
+        UserWithAllDTO userDto = userWithAllToDTOMapper.getDestination(user);
+        Set<Role> roles = user.getRoles();
+        userDto.setRoles(roles.stream().map(x->roleToDTOMapper.getDestination(x)).collect(Collectors.toSet()));
         userDto.setBorrowings(borrowingService.findBorrowingsByUserId(user.getId()));
 
-    return userDto;
+        return userDto;
     }
 
+    public UserWithRoleDTO findUserByUserNameWithRole(String userName) {
+        User user = userDao.findByUserName(userName);
+        UserWithRoleDTO userDto = userWithRoleToDTOMapper.getDestination(user);
+        Set<Role> roles = user.getRoles();
+        userDto.setRoles(roles.stream().map(x->roleToDTOMapper.getDestination(x)).collect(Collectors.toSet()));
 
+
+        return userDto;
+    }
 }

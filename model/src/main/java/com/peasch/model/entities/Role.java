@@ -12,6 +12,7 @@ public class Role {
     private Integer id;
     @Column(name = "role")
     private String role;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_has_role",
@@ -51,5 +52,4 @@ public class Role {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
-
 }

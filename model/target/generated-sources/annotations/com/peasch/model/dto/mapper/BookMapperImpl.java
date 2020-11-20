@@ -1,7 +1,7 @@
 package com.peasch.model.dto.mapper;
 
-import com.peasch.model.dto.BookDto;
-import com.peasch.model.dto.CopyDto;
+import com.peasch.model.dto.Book.BookDto;
+import com.peasch.model.dto.copies.CopyDto;
 import com.peasch.model.entities.Book;
 import com.peasch.model.entities.Copy;
 import java.util.ArrayList;

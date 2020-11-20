@@ -1,25 +1,21 @@
-package com.peasch.model.dto;
-
-
+package com.peasch.model.dto.Book;
+import com.googlecode.jmapper.annotations.JGlobalMap;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 
+@JGlobalMap
 public class BookDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private int id;
     private String title;
     private String summary;
-    private CategoryDto category;
-    private AuthorDto author;
+
+
     private String cover;
-    private Set<CopyDto> copiesOfBook = new HashSet<>();
+
 
     public BookDto() {
     }
-
-
 
 
     public String getCover() {
@@ -54,27 +50,7 @@ public class BookDto implements Serializable {
         this.summary = summary;
     }
 
-    public CategoryDto getCategory() {
-        return category;
-    }
 
-    public void setCategory(CategoryDto category) {
-        this.category = category;
-    }
 
-    public AuthorDto getAuthor() {
-        return author;
-    }
 
-    public void setAuthor(AuthorDto author) {
-        this.author = author;
-    }
-
-    public Set<CopyDto> getCopiesOfBook() {
-        return copiesOfBook;
-    }
-
-    public void setCopiesOfBook(Set<CopyDto> copiesOfBook) {
-        this.copiesOfBook = copiesOfBook;
-    }
 }

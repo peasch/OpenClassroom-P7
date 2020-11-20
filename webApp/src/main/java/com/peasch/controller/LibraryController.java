@@ -1,9 +1,7 @@
 package com.peasch.controller;
 
-import com.peasch.model.dto.LibraryDto;
-import com.peasch.model.entities.Borrowing;
+import com.peasch.model.dto.libraries.LibraryDto;
 import com.peasch.model.entities.Library;
-import com.peasch.service.BorrowingService;
 import com.peasch.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +26,7 @@ public class LibraryController {
     }
 
     @PostMapping("/libraries/add")
-    public void addLibrary (@RequestBody Library library){
-        service.save(library);
+    public void addLibrary (@RequestBody LibraryDto libraryDto){
+        service.save(libraryDto);
     }
 }

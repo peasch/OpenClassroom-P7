@@ -1,9 +1,10 @@
-package com.peasch.model.dto;
+package com.peasch.model.dto.User;
+import com.googlecode.jmapper.annotations.JGlobalMap;
+
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 
+@JGlobalMap
 public class UserDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,9 +22,7 @@ public class UserDto implements Serializable {
 
     private String birthDate;
 
-    private Set<BorrowingDto> borrowings = new HashSet<>();
 
-    private Set <RoleDto> roles = new HashSet <> ();
 
     public UserDto() {
     }
@@ -85,19 +84,5 @@ public class UserDto implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public Set<BorrowingDto> getBorrowings() {
-        return borrowings;
-    }
 
-    public void setBorrowings(Set<BorrowingDto> borrowings) {
-        this.borrowings = borrowings;
-    }
-
-    public Set<RoleDto> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<RoleDto> roles) {
-        this.roles = roles;
-    }
 }

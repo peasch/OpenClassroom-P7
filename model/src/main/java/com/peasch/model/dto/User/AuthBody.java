@@ -1,4 +1,7 @@
-package com.peasch.model.dto;
+package com.peasch.model.dto.User;
+
+import com.googlecode.jmapper.annotations.JGlobalMap;
+
 
 public class AuthBody {
     private String userName;

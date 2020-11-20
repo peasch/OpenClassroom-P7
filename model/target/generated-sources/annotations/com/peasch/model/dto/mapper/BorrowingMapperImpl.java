@@ -1,6 +1,6 @@
 package com.peasch.model.dto.mapper;
 
-import com.peasch.model.dto.BorrowingDto;
+import com.peasch.model.dto.Borrowings.BorrowingDto;
 import com.peasch.model.entities.Borrowing;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;

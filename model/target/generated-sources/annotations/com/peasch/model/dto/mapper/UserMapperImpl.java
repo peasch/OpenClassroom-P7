@@ -1,8 +1,8 @@
 package com.peasch.model.dto.mapper;
 
-import com.peasch.model.dto.BorrowingDto;
-import com.peasch.model.dto.RoleDto;
-import com.peasch.model.dto.UserDto;
+import com.peasch.model.dto.Borrowings.BorrowingDto;
+import com.peasch.model.dto.Role.RoleDto;
+import com.peasch.model.dto.User.UserDto;
 import com.peasch.model.entities.Borrowing;
 import com.peasch.model.entities.Role;
 import com.peasch.model.entities.User;

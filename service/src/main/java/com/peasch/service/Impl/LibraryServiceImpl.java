@@ -1,9 +1,8 @@
 package com.peasch.service.Impl;
 
-import com.peasch.model.dto.LibraryDto;
-import com.peasch.model.dto.mapper.LibraryMapper;
+import com.googlecode.jmapper.JMapper;
+import com.peasch.model.dto.libraries.LibraryDto;
 import com.peasch.model.entities.Library;
-import com.peasch.model.entities.User;
 import com.peasch.repository.dao.LibraryDao;
 import com.peasch.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LibraryServiceImpl implements LibraryService {
@@ -18,25 +18,24 @@ public class LibraryServiceImpl implements LibraryService {
     private LibraryDao libraryDao;
 
     @Autowired
-    private LibraryMapper mapper;
+    private JMapper<LibraryDto, Library> libraryToDTOMapper;
+
+    @Autowired
+    private JMapper<Library, LibraryDto>  dtoToLibraryMapper;
 
     public List<LibraryDto> getLibraries(){
-        List<LibraryDto> libs = new ArrayList<>();
         List<Library> libraries = libraryDao.findAll();
-        for (Library library:libraries){
-            libs.add(mapper.fromLibraryToDto(library));
-        }
-        return libs;
+        return libraries.stream().map(x->libraryToDTOMapper.getDestination(x)).collect(Collectors.toList());
     }
 
     public LibraryDto findById(Integer id){
 
-        return mapper.fromLibraryToDto(libraryDao.findById(id).get());
+        return libraryToDTOMapper.getDestination(libraryDao.findById(id).get());
 
     }
 
-    public Library save(Library library){
-        return libraryDao.save(library);
+    public LibraryDto save(LibraryDto libraryDto){
+        return libraryToDTOMapper.getDestination(libraryDao.save(dtoToLibraryMapper.getDestination(libraryDto)));
     }
 
 }

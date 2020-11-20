@@ -1,27 +1,34 @@
 package com.peasch.service.Impl;
 
-import com.peasch.model.dto.RoleDto;
-import com.peasch.model.dto.mapper.RoleMapper;
+import com.googlecode.jmapper.JMapper;
+import com.peasch.model.dto.Role.RoleDto;
+import com.peasch.model.dto.User.UserDto;
 import com.peasch.model.entities.Role;
+import com.peasch.model.entities.User;
+import com.peasch.repository.dao.RoleDao;
 import com.peasch.service.RoleService;
-import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleMapper roleMapper;
 
-   /* Set<RoleDto> FindRolesOfUserByUserName(String userName) {
-    Set<Role> roles = userService.findUserByUserName(userName).getRoles();
-    for(Role role :roles){
+    @Autowired
+    private JMapper<RoleDto, Role> roleToDTOMapper;
+    @Autowired
+    private RoleDao roleDao;
 
+    @Override
+    public RoleDto findByRole(String role) {
+        return roleToDTOMapper.getDestination(roleDao.findByRole(role));
     }
-    }*/
+
+    @Override
+    public List<RoleDto> getRoles() {
+        List<Role> roles = roleDao.findAll();
+        return roles.stream().map(x -> roleToDTOMapper.getDestination(x)).collect(Collectors.toList());
+    }
 }

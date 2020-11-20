@@ -1,16 +1,18 @@
-package com.peasch.model.dto;
+package com.peasch.model.dto.Borrowings;
+
+import com.googlecode.jmapper.annotations.JGlobalMap;
+import com.peasch.model.dto.User.UserDto;
+import com.peasch.model.dto.copies.CopyDto;
 
 import java.io.Serializable;
 
-
+@JGlobalMap
 public class BorrowingDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private int id;
     private String borrowingDate;
     private String returnDate;
     private boolean extended;
-    private UserDto user;
-    private CopyDto copy;
     private Boolean returned;
 
     public BorrowingDto() {
@@ -47,22 +49,6 @@ public class BorrowingDto implements Serializable {
 
     public void setExtended(boolean extended) {
         this.extended = extended;
-    }
-
-    public UserDto getUser() {
-        return user;
-    }
-
-    public void setUser(UserDto user) {
-        this.user = user;
-    }
-
-    public CopyDto getCopy() {
-        return copy;
-    }
-
-    public void setCopy(CopyDto copy) {
-        this.copy = copy;
     }
 
     public Boolean getReturned() {

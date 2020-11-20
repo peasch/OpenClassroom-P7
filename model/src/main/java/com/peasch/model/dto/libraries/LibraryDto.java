@@ -1,13 +1,13 @@
-package com.peasch.model.dto;
-import com.peasch.model.entities.Copy;
-import com.peasch.model.entities.User;
-import lombok.*;
+package com.peasch.model.dto.libraries;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.googlecode.jmapper.annotations.JGlobalMap;
+import com.peasch.model.dto.copies.CopyDto;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-
+@JGlobalMap
 public class LibraryDto implements Serializable {
     private static final long serialVersionUID = 1L;
     private int id;
@@ -15,7 +15,7 @@ public class LibraryDto implements Serializable {
     private String adress;
     private String phone;
     private String email;
-    private Set<CopyDto> copies = new HashSet<>();
+
 
     public LibraryDto() {
     }
@@ -60,11 +60,5 @@ public class LibraryDto implements Serializable {
         this.email = email;
     }
 
-    public Set<CopyDto> getCopies() {
-        return copies;
-    }
 
-    public void setCopies(Set<CopyDto> copies) {
-        this.copies = copies;
-    }
 }

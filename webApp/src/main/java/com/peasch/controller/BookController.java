@@ -1,12 +1,10 @@
 package com.peasch.controller;
 
-import com.peasch.model.dto.BookDto;
+import com.peasch.model.dto.Book.BookDto;
+import com.peasch.model.dto.Book.BookWithoutCopiesDTO;
 import com.peasch.model.entities.Book;
 import com.peasch.model.entities.Research;
-import com.peasch.model.entities.User;
-import com.peasch.service.AuthorService;
 import com.peasch.service.BookService;
-import com.peasch.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +34,7 @@ public class BookController {
     }
 
     @PostMapping("search")
-    public List<BookDto> findBooksByAuthor(@RequestBody Research research){ ;
+    public List<BookWithoutCopiesDTO> findBooksByAuthor(@RequestBody Research research){ ;
         return service.findBooksByResearch(research);
 
     }
