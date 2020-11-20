@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: peasc
+Build-Jdk: 12.0.2
+Implementation-Title: webApp Maven Webapp
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.peasch.library
+Main-Class: ${start-class}
+
