@@ -16,12 +16,12 @@ public class LibraryController {
 
 
     @GetMapping("/libraries")
-    public List<LibraryDto> getLibraries(){
+    public List<LibraryDto> getLibraries( @RequestHeader(name = "Authorization") String token){
         return service.getLibraries();
     }
 
     @GetMapping("/libraries/{id}")
-    public LibraryDto getLibraryById(@PathVariable(value = "id")Integer id){
+    public LibraryDto getLibraryById(@PathVariable(value = "id")Integer id, @RequestHeader(name = "Authorization") String token){
         return service.findById(id);
     }
 

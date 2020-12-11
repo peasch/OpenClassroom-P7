@@ -10,4 +10,5 @@ import java.util.Set;
 public interface BorrowingDao extends JpaRepository<Borrowing, Integer> {
 
  Set<Borrowing> findBorrowingByUser_Id(Integer id);
+ Set<Borrowing> findBorrowingByReturnedFalse();
 }

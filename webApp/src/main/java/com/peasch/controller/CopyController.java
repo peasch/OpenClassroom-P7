@@ -28,12 +28,12 @@ public class CopyController {
     }
 
     @PostMapping("add")
-    public void addCopy (@RequestBody Copy copy){
+    public void addCopy (@RequestBody CopyDto copy){
         service.save(copy);
     }
 
     @GetMapping("book/{id}")
-    public Map<Integer,Integer> getCopiesofBookInLibraries(@PathVariable(value="id")Integer id){
+    public Map<Integer,Integer> getCopiesofBookInLibraries(@PathVariable(value="id")Integer id, @RequestHeader(name = "Authorization") String token){
         return service.findCopiesInLibrary(id);
     }
 }

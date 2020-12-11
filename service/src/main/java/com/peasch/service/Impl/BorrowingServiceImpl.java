@@ -2,8 +2,10 @@ package com.peasch.service.Impl;
 
 import com.googlecode.jmapper.JMapper;
 import com.peasch.model.dto.Borrowings.BorrowingDto;
+import com.peasch.model.dto.Borrowings.BorrowingLateDTO;
 import com.peasch.model.dto.Borrowings.BorrowingWithAllDTO;
 import com.peasch.model.dto.User.UserDto;
+import com.peasch.model.dto.copies.CopyDto;
 import com.peasch.model.dto.copies.CopyWithALLDTO;
 import com.peasch.model.entities.Borrowing;
 import com.peasch.model.entities.Copy;
@@ -13,6 +15,7 @@ import com.peasch.service.BorrowingService;
 import com.peasch.service.CopyService;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -33,7 +36,18 @@ public class BorrowingServiceImpl implements BorrowingService {
     private JMapper<BorrowingWithAllDTO, Borrowing> borrowingWithAllToDTOMapper;
 
     @Autowired
+    private JMapper<BorrowingLateDTO, Borrowing> borrowingLateToDTOMapper;
+
+    @Autowired
+    private JMapper<Borrowing, BorrowingWithAllDTO>  dtoToBorrowingWithAllMapper;
+
+    @Autowired
+    private JMapper<CopyDto, Copy>  copyToDTOMapper;
+    @Autowired
+    private JMapper<Copy, CopyDto>  dtoToCopyMapper;
+    @Autowired
     private CopyService copyService;
+
 
 
     public List<BorrowingDto> getBorrowings(){
@@ -63,8 +77,9 @@ public class BorrowingServiceImpl implements BorrowingService {
     }
 
 
-    public Borrowing save(Borrowing borrowing){
-        return borrowingDao.save(borrowing);
+    public BorrowingWithAllDTO save(BorrowingWithAllDTO borrowingWithAllDTO){
+
+        return borrowingWithAllToDTOMapper.getDestination( borrowingDao.save(dtoToBorrowingWithAllMapper.getDestination(borrowingWithAllDTO)));
     }
 
 
@@ -78,12 +93,6 @@ public class BorrowingServiceImpl implements BorrowingService {
     }
 
 
-    public String dateToday(){
-        Locale locale = new Locale("fr", "FR");
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale);
-        String date =  dateFormat.format(new Date());
-        return date;
-    }
 
     public BorrowingWithAllDTO extendByIdWithAll(Integer id){
         Borrowing borrow =borrowingDao.findById(id).get();
@@ -92,11 +101,51 @@ public class BorrowingServiceImpl implements BorrowingService {
         date = date.plusMonths(1);
         borrow.setReturnDate(date.toString());
         borrow.setExtended(true);
-        this.save(borrow);
-        BorrowingWithAllDTO borrowing = this.findByIdWithAll(id);
+        BorrowingWithAllDTO borrowing =borrowingWithAllToDTOMapper.getDestination(borrow);
+        this.save(borrowing);
         return borrowing;
 
     }
 
+    public Set<BorrowingLateDTO> findAllTooLateBorrowings(){
+        Set<Borrowing> borrowings = borrowingDao.findBorrowingByReturnedFalse();
+        Set<BorrowingLateDTO> lateBorrowings = new HashSet<>();
+        LocalDate today =LocalDate.now();
+        for(Borrowing borrowing :borrowings){
+            String returnDate = borrowing.getReturnDate();
+            System.out.println(today);
+            LocalDate date = LocalDate.parse(returnDate);
+            System.out.println(date);
+            if (date.compareTo(today)<0){
+               lateBorrowings.add(borrowingLateToDTOMapper.getDestination(borrowing));
 
+            }
+        }
+        return lateBorrowings;
+    }
+
+
+    public BorrowingWithAllDTO returnBorrowing(Integer id,UserDto employee){
+        Borrowing borrow =borrowingDao.findById(id).get();
+        borrow.setReturned(true);
+        CopyDto copy = copyToDTOMapper.getDestination(borrow.getCopy());
+        copy.setAvailable(true);
+        copyService.save(copy);
+        BorrowingWithAllDTO borrowing =borrowingWithAllToDTOMapper.getDestination(borrow);
+        borrowing.setReturningEmployee(employee);
+        this.save(borrowing);
+        return  borrowing;
+    }
+
+    public BorrowingWithAllDTO addBorrowing (UserDto user, CopyWithALLDTO copyDTO){
+        BorrowingWithAllDTO borrowing = new BorrowingWithAllDTO();
+        borrowing.setUser(user);
+        borrowing.setCopy(copyDTO);
+        borrowing.setBorrowingDate(LocalDate.now().toString());
+        borrowing.setReturnDate(LocalDate.now().plusMonths(1).toString());
+        CopyDto copy =copyService.findById(copyDTO.getId());
+        copy.setAvailable(false);
+        copyService.save(copy);
+        return borrowingWithAllToDTOMapper.getDestination(borrowingDao.save(dtoToBorrowingWithAllMapper.getDestination(borrowing)));
+    }
 }

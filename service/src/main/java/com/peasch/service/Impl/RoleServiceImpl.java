@@ -23,7 +23,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDto findByRole(String role) {
-        return roleToDTOMapper.getDestination(roleDao.findByRole(role));
+        Role rolee = roleDao.findByRole(role);
+        RoleDto roleDto = new RoleDto();
+        roleDto.setId(rolee.getId());
+        roleDto.setRole(rolee.getRole());
+        return roleDto;
     }
 
     @Override

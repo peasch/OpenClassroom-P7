@@ -1,11 +1,6 @@
 package com.peasch.controller.security.service;
-
-import com.googlecode.jmapper.JMapper;
 import com.peasch.model.dto.Role.RoleDto;
-import com.peasch.model.dto.User.UserDto;
 import com.peasch.model.dto.User.UserWithRoleDTO;
-import com.peasch.model.entities.Role;
-import com.peasch.repository.dao.RoleDao;
 import com.peasch.service.RoleService;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
     public void saveUser(UserWithRoleDTO user) { // Pour sauver un nouvel utilisateur
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        RoleDto userRole = roleService.findByRole("USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
-        userService.save(user);
+        userService.saveWithRole(user);
     }
 
 
@@ -62,10 +55,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     private List<GrantedAuthority> getUserAuthority(Set<RoleDto> userRoles) {
         Set<GrantedAuthority> roles = new HashSet<>();
         userRoles.forEach((role) -> {
-            roles.add(new SimpleGrantedAuthority(role.getRole()));
+            roles.add(new SimpleGrantedAuthority("ROLE_"+role.getRole()));
         });
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>(roles);
-        return grantedAuthorities;
+        return new ArrayList<>(roles);
+
     }
     private UserDetails buildUserForAuthentication(UserWithRoleDTO user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), authorities);

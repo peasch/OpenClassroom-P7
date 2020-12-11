@@ -19,22 +19,22 @@ public class BookController {
 
 
     @GetMapping
-    public List<BookDto> getBooks(){
+    public List<BookDto> getBooks( @RequestHeader(name = "Authorization") String token){
         return service.getBooks();
     }
 
     @GetMapping("{id}")
-    public BookDto getBookById(@PathVariable(value = "id")Integer id){
+    public BookDto getBookById(@PathVariable(value = "id")Integer id, @RequestHeader(name = "Authorization") String token){
         return service.findById(id);
     }
 
     @PostMapping("add")
-    public void addBook (@RequestBody Book book){
+    public void addBook (@RequestBody Book book, @RequestHeader(name = "Authorization") String token){
         service.save(book);
     }
 
     @PostMapping("search")
-    public List<BookWithoutCopiesDTO> findBooksByAuthor(@RequestBody Research research){ ;
+    public List<BookWithoutCopiesDTO> findBooksByAuthor(@RequestBody Research research, @RequestHeader(name = "Authorization") String token){ ;
         return service.findBooksByResearch(research);
 
     }

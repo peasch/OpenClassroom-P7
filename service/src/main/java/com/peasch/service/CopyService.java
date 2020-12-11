@@ -13,7 +13,7 @@ public interface CopyService {
 
     CopyDto findById(Integer id);
 
-    Copy save(Copy copy);
+    CopyDto save(CopyDto copy);
 
     List<CopyDto> findCopiesByBook_IdAndAvailable(Integer bookId,Integer libId);
     Map<Integer,Integer> findCopiesInLibrary(Integer bookId);

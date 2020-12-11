@@ -1,13 +1,12 @@
-package com.peasch.model.dto.Role;
+package com.peasch.model.dto.Borrowings;
 
 import com.peasch.model.dto.User.UserDto;
-import com.peasch.model.entities.User;
 
-public class RoleWithUserDTO extends RoleDto {
+public class BorrowingLateDTO extends BorrowingDto {
 
     private UserDto user;
 
-    public RoleWithUserDTO() {
+    public BorrowingLateDTO() {
     }
 
     public UserDto getUser() {

@@ -28,9 +28,13 @@ public class Borrowing {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_employee")
+    private User returningEmployee;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_copy")
     private Copy copy;
-
+    @Transient
     private Integer daysToGo;
 
     public Borrowing() {
@@ -98,5 +102,13 @@ public class Borrowing {
 
     public void setCopy(Copy copy) {
         this.copy = copy;
+    }
+
+    public User getReturningEmployee() {
+        return returningEmployee;
+    }
+
+    public void setReturningEmployee(User returningEmployee) {
+        this.returningEmployee = returningEmployee;
     }
 }

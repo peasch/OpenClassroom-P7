@@ -27,6 +27,9 @@ public class CopyServiceImpl implements CopyService {
     private CopyDao copyDao;
     @Autowired
     private JMapper<CopyDto, Copy> copyJMapper;
+
+    @Autowired
+    private JMapper<Copy, CopyDto>  dtoToCopyMapper;
     @Autowired
     private JMapper<CopyWithALLDTO, Copy> copyWithAllToDTOMapper;
     @Autowired
@@ -63,8 +66,8 @@ public class CopyServiceImpl implements CopyService {
 
     }
 
-    public Copy save(Copy copy) {
-        return copyDao.save(copy);
+    public CopyDto save(CopyDto copy) {
+        return copyJMapper.getDestination(copyDao.save(dtoToCopyMapper.getDestination(copy)));
     }
 
 

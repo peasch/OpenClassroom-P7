@@ -12,5 +12,7 @@ public interface UserService {
     UserDto save(UserDto userDto);
     UserWithAllDTO findUserByUserName(String userName);
     UserWithRoleDTO findUserByUserNameWithRole(String userName);
+    UserDto findIfExistsUsername(String userName);
+    UserWithRoleDTO saveWithRole(UserWithRoleDTO userDto);
 
 }

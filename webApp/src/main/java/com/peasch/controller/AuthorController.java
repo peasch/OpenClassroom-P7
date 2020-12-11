@@ -16,12 +16,12 @@ public class AuthorController {
 
 
     @GetMapping
-    public List<AuthorDto> getAuthors(){
+    public List<AuthorDto> getAuthors( @RequestHeader(name = "Authorization") String token){
         return service.getAuthors();
     }
 
     @GetMapping("{id}")
-    public AuthorDto getUserById(@PathVariable(value = "id")Integer id){
+    public AuthorDto getUserById(@PathVariable(value = "id")Integer id, @RequestHeader(name = "Authorization") String token){
         return service.findById(id);
     }
 

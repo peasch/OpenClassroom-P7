@@ -2,9 +2,12 @@ package com.peasch.controller;
 
 import com.peasch.controller.security.config.JwtTokenProvider;
 import com.peasch.controller.security.service.CustomUserDetailsService;
+import com.peasch.model.dto.Role.RoleDto;
 import com.peasch.model.dto.User.AuthBody;
+import com.peasch.model.dto.User.UserConnectedDto;
 import com.peasch.model.dto.User.UserDto;
 import com.peasch.model.dto.User.UserWithRoleDTO;
+import com.peasch.service.RoleService;
 import com.peasch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -28,9 +33,11 @@ public class AuthenticationController {
     @Autowired
     JwtTokenProvider jwtTokenProvider;
     @Autowired
-    UserService users;
+    UserService userService;
     @Autowired
-    private CustomUserDetailsService userService;
+    private RoleService roleService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @SuppressWarnings("rawtypes")
     @PostMapping("/login")
@@ -38,8 +45,9 @@ public class AuthenticationController {
         try {
             String userName = data.getUserName();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, data.getPassword()));
-        String token = jwtTokenProvider.createToken(userName, users.findUserByUserNameWithRole(userName).getRoles());
-            System.out.println(token);
+
+        String token = jwtTokenProvider.createToken(userName, userService.findUserByUserNameWithRole(userName).getRoles());
+
             return token;
         }catch (BadCredentialsException e) {
             throw new AuthenticationException("Invalid Username/password");
@@ -49,11 +57,16 @@ public class AuthenticationController {
     @SuppressWarnings("rawtypes")
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody UserWithRoleDTO user) {
-        UserDto userExists = users.findUserByUserName(user.getEmail());
+        Set<RoleDto> roles = new HashSet<>();
+        RoleDto role = new RoleDto();
+        role = roleService.findByRole("USER");
+        roles.add(role);
+        user.setRoles(roles);
+        UserDto userExists = userService.findIfExistsUsername(user.getEmail());
         if (userExists != null) {
             throw new BadCredentialsException("User with username: " + user.getEmail() + " already exists");
         }
-        userService.saveUser(user);
+        customUserDetailsService.saveUser(user);
         Map<Object, Object> model = new HashMap<>();
         model.put("message", "User registered successfully");
         return ok(model);
