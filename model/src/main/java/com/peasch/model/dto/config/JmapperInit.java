@@ -7,6 +7,7 @@ import com.peasch.model.dto.Book.BookWithoutCopiesDTO;
 import com.peasch.model.dto.Borrowings.BorrowingDto;
 import com.peasch.model.dto.Borrowings.BorrowingLateDTO;
 import com.peasch.model.dto.Borrowings.BorrowingWithAllDTO;
+import com.peasch.model.dto.Borrowings.BorrowingWithCopyAndUserDto;
 import com.peasch.model.dto.Categories.CategoryDto;
 import com.peasch.model.dto.Role.RoleDto;
 import com.peasch.model.dto.User.UserDto;
@@ -132,6 +133,8 @@ public class JmapperInit {
     JMapper<Borrowing, BorrowingLateDTO>  dtoToBorrowingLateMapper(){
         return new JMapper<>(Borrowing.class,BorrowingLateDTO.class);
     }
+
+
 
     @Bean
     JMapper<LibraryDto, Library>  libraryToDTOMapper(){

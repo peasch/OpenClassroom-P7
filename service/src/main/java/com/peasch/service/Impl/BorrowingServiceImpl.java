@@ -46,6 +46,10 @@ public class BorrowingServiceImpl implements BorrowingService {
     @Autowired
     private JMapper<Copy, CopyDto>  dtoToCopyMapper;
     @Autowired
+    private JMapper<CopyWithALLDTO, Copy>  copyWithAllToDTOMapper;
+    @Autowired
+    private JMapper<Copy, CopyWithALLDTO>  dtoToCopyWithAllMapper;
+    @Autowired
     private CopyService copyService;
 
 
@@ -128,7 +132,7 @@ public class BorrowingServiceImpl implements BorrowingService {
     public BorrowingWithAllDTO returnBorrowing(Integer id,UserDto employee){
         Borrowing borrow =borrowingDao.findById(id).get();
         borrow.setReturned(true);
-        CopyDto copy = copyToDTOMapper.getDestination(borrow.getCopy());
+        CopyWithALLDTO copy = copyWithAllToDTOMapper.getDestination(borrow.getCopy());
         copy.setAvailable(true);
         copyService.save(copy);
         BorrowingWithAllDTO borrowing =borrowingWithAllToDTOMapper.getDestination(borrow);
@@ -143,9 +147,7 @@ public class BorrowingServiceImpl implements BorrowingService {
         borrowing.setCopy(copyDTO);
         borrowing.setBorrowingDate(LocalDate.now().toString());
         borrowing.setReturnDate(LocalDate.now().plusMonths(1).toString());
-        CopyDto copy =copyService.findById(copyDTO.getId());
-        copy.setAvailable(false);
-        copyService.save(copy);
+        copyService.setUnavailableCopy(copyDTO);
         return borrowingWithAllToDTOMapper.getDestination(borrowingDao.save(dtoToBorrowingWithAllMapper.getDestination(borrowing)));
     }
 }

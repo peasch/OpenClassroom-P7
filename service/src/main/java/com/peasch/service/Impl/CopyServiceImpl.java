@@ -39,6 +39,8 @@ public class CopyServiceImpl implements CopyService {
     @Autowired
     private JMapper<LibraryDto, Library>  libraryToDTOMapper;
     @Autowired
+    private JMapper<Copy, CopyWithALLDTO>  dtoToCopyWithAllMapper;
+    @Autowired
     private LibraryService libService;
 
     @Autowired
@@ -66,8 +68,8 @@ public class CopyServiceImpl implements CopyService {
 
     }
 
-    public CopyDto save(CopyDto copy) {
-        return copyJMapper.getDestination(copyDao.save(dtoToCopyMapper.getDestination(copy)));
+    public CopyDto save(CopyWithALLDTO copy) {
+        return copyJMapper.getDestination(copyDao.save(dtoToCopyWithAllMapper.getDestination(copy)));
     }
 
 
@@ -83,5 +85,12 @@ public class CopyServiceImpl implements CopyService {
             copiesInLibraries.put(library.getId(), this.findCopiesByBook_IdAndAvailable(bookId, library.getId()).size());
         }
         return copiesInLibraries;
+    }
+
+    public CopyWithALLDTO setUnavailableCopy( CopyWithALLDTO copy){
+        CopyWithALLDTO copyWithALLDTO = this.findById(copy.getId());
+        copyWithALLDTO.setAvailable(false);
+        this.save(copyWithALLDTO);
+        return copyWithALLDTO;
     }
 }

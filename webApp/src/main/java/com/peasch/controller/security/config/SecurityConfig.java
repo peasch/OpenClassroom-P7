@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/borrowings/return/**").hasRole(ADMIN)
                 .antMatchers("/borrowings/add").hasAnyRole(EMPLOYEE,ADMIN)
                 /*.antMatchers("/user/username/**").authenticated()*/
-                .anyRequest().authenticated()
+                /*.anyRequest().authenticated()*/
                 .and().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint()).and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
     }

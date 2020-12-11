@@ -13,10 +13,11 @@ public interface CopyService {
 
     CopyDto findById(Integer id);
 
-    CopyDto save(CopyDto copy);
+    CopyDto save(CopyWithALLDTO copy);
 
     List<CopyDto> findCopiesByBook_IdAndAvailable(Integer bookId,Integer libId);
     Map<Integer,Integer> findCopiesInLibrary(Integer bookId);
     CopyWithALLDTO findByCopyWithAll(Copy copy);
+    CopyWithALLDTO setUnavailableCopy( CopyWithALLDTO copy);
 }
 

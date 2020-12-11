@@ -1,6 +1,7 @@
 package com.peasch.controller;
 
 import com.peasch.model.dto.copies.CopyDto;
+import com.peasch.model.dto.copies.CopyWithALLDTO;
 import com.peasch.model.entities.Copy;
 import com.peasch.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class CopyController {
     }
 
     @PostMapping("add")
-    public void addCopy (@RequestBody CopyDto copy){
+    public void addCopy (@RequestBody CopyWithALLDTO copy){
         service.save(copy);
     }
 

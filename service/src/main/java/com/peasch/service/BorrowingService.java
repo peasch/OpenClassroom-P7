@@ -17,7 +17,7 @@ public interface BorrowingService {
     BorrowingDto findById(Integer id);
 
     BorrowingWithAllDTO save(BorrowingWithAllDTO borrowingWithAllDTO);
-
+    BorrowingWithAllDTO findByIdWithAll(Integer id);
     Set<BorrowingWithAllDTO> findBorrowingsByUserId(Integer id);
     BorrowingWithAllDTO extendByIdWithAll(Integer id);
     Set<BorrowingLateDTO> findAllTooLateBorrowings();

@@ -31,13 +31,13 @@ public class BorrowingController {
     }
 
     @GetMapping("{id}")
-    public BorrowingDto getUserById(@PathVariable(value = "id")Integer id, @RequestHeader(name = "Authorization") String token){
-        return service.findById(id);
+    public BorrowingWithAllDTO getBorrowingById(@PathVariable(value = "id")Integer id, @RequestHeader(name = "Authorization") String token){
+        return service.findByIdWithAll(id);
     }
 
     @PostMapping("add")
     public void addBorrowing (@RequestBody BorrowingWithAllDTO borrowingWithAllDTO, @RequestHeader(name = "Authorization") String token){
-        service.save(borrowingWithAllDTO);
+        service.addBorrowing(borrowingWithAllDTO.getUser(),borrowingWithAllDTO.getCopy());
     }
 
     @PostMapping("extend/{id}")
