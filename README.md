@@ -13,10 +13,12 @@ It has been developped with Spring Boot 2.3.3 and diverses dependencies you'll f
 
 Download et open with your IDE all the files in the repository.
 Create a database and manage your id and password in the webApp application.properties file, to enable database access.
+Use provided dumps, data and structure, to create database for this project.
 
 run the LibraryApplication.class in the webApp module.
 
 You will find the web client and the batch module in the link below, that you'll have to run The same way.
+
 
 # Web client :
 https://github.com/peasch/OpenClassrooms-P7-client-Web/tree/firstBranch
