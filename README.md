@@ -19,6 +19,16 @@ run the LibraryApplication.class in the webApp module.
 
 You will find the web client and the batch module in the link below, that you'll have to run The same way.
 
+# RUN without IDE:
+
+1)open a terminal
+2)Go to the jar file directory
+3) enter the command : java-jar {fileName}.jar
+for the API, the batch, and the web client.
+4)Open Your web browser.
+5)Go th the url : http://localhost:8080/home
+6) Enjoy the project
+
 
 # Web client :
 https://github.com/peasch/OpenClassrooms-P7-client-Web/tree/firstBranch
@@ -26,11 +36,4 @@ https://github.com/peasch/OpenClassrooms-P7-client-Web/tree/firstBranch
 # Batch Module 
 https://github.com/peasch/P7-Batch
 
-# WARNING !
 
-Normaly , you juste have to launch the jar file of the project with the console  command :
-
-{project path} / mvn java -jar ProjectName.jar 
-
-But I meet some issues to pacakge the jar file.
-If I fix issues before the meeting, I'll modify this readme file.
